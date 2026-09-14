@@ -1,0 +1,117 @@
+# Skills Claude found in postings that the hand-written dictionary was missing.
+#
+# Written by `python -m tt learn-skills --add`. Kept separate from
+# taxonomy.py on purpose: that file is curated by hand and should stay
+# readable, while this one is machine-generated and safe to delete or edit
+# without losing anything you wrote yourself.
+#
+# Entries here are merged into the dictionary at import time and then counted
+# exactly like every other skill - deterministically, on every posting,
+# including the 34,000 already stored. Adding one here and running
+# `tt reprocess` gives it twelve months of history immediately.
+#
+# Delete any line that looks wrong; nothing depends on it.
+
+skills:
+- name: Playwright
+  category: practice
+  aliases:
+  - playwright
+  source: free statistical finder, reviewed by hand
+  added: '2026-09-13'
+- name: Selenium
+  category: practice
+  aliases:
+  - selenium
+  - webdriver
+  source: free statistical finder, reviewed by hand
+  added: '2026-09-13'
+- name: JUnit
+  category: practice
+  aliases:
+  - junit
+  - pytest-bdd
+  - nunit
+  - xunit
+  source: free statistical finder, reviewed by hand
+  added: '2026-09-13'
+- name: JSON
+  category: backend
+  aliases:
+  - json
+  - yaml
+  - protobuf schema
+  source: free statistical finder, reviewed by hand
+  added: '2026-09-13'
+- name: Jira
+  category: practice
+  aliases:
+  - jira
+  - confluence
+  - bitbucket
+  source: free statistical finder, reviewed by hand
+  added: '2026-09-13'
+- name: Visual Studio
+  category: practice
+  aliases:
+  - visual studio
+  - vs code
+  - intellij
+  - pycharm
+  source: free statistical finder, reviewed by hand
+  added: '2026-09-13'
+- name: ECS
+  category: cloud
+  aliases:
+  - ecs
+  - fargate
+  source: free statistical finder, reviewed by hand
+  added: '2026-09-13'
+- name: Azure OpenAI
+  category: ai
+  aliases:
+  - azure openai
+  - azure ai
+  - bedrock
+  source: free statistical finder, reviewed by hand
+  added: '2026-09-13'
+- name: MATLAB/Simulink
+  category: practice
+  aliases:
+  - matlab/simulink
+  - simulink
+  source: free statistical finder, reviewed by hand
+  added: '2026-09-13'
+- name: Radar
+  category: domain
+  aliases:
+  - radar
+  - sonar
+  - electro-optical
+  source: free statistical finder, reviewed by hand
+  added: '2026-09-13'
+- name: Sensor Fusion
+  category: domain
+  aliases:
+  - sensor fusion
+  - kalman
+  - kalman filter
+  - state estimation
+  - tracking algorithm
+  source: free statistical finder, reviewed by hand
+  added: '2026-09-13'
+- name: OOP
+  category: practice
+  aliases:
+  - oop
+  - object-oriented design
+  - object oriented programming
+  source: free statistical finder, reviewed by hand
+  added: '2026-09-13'
+- name: SLAs
+  category: design
+  aliases:
+  - slas
+  - service level agreement
+  source: free statistical finder, reviewed by hand
+  added: '2026-09-13'

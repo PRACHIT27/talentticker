@@ -1,0 +1,125 @@
+# Product management vocabulary.
+#
+# Loaded on top of the technical dictionary rather than instead of it: product
+# postings ask for SQL, APIs and increasingly LLM literacy, so both matter.
+#
+# Same rules as taxonomy.py - aliases are matched with word boundaries and an
+# optional plural, and anything containing a backslash is treated as a regular
+# expression rather than a literal.
+
+skills:
+  # ---- the core craft ----
+  - name: Roadmapping
+    category: practice
+    aliases: [roadmap, roadmapping, product roadmap, roadmap planning]
+  - name: PRDs
+    category: practice
+    aliases: [prd, product requirements document, spec writing, product spec,
+              writing specs, requirements gathering, one-pager]
+  - name: Discovery
+    category: practice
+    aliases: [product discovery, customer discovery, discovery work,
+              problem discovery, opportunity sizing]
+  - name: User Research
+    category: practice
+    aliases: [user research, customer interviews, user interviews,
+              usability testing, ethnographic, voice of the customer,
+              customer feedback]
+  - name: Prioritisation
+    category: practice
+    aliases: [prioritization, prioritisation, backlog, backlog grooming,
+              rice scoring, moscow, tradeoff, trade-off, ruthless prioriti]
+  - name: Stakeholder Management
+    category: practice
+    aliases: [stakeholder, stakeholder management, cross-functional partner,
+              influence without authority, alignment across teams,
+              executive communication]
+  - name: Go-to-Market
+    category: practice
+    aliases: [go-to-market, gtm, launch plan, product launch, beta launch,
+              rollout plan, release strategy]
+  - name: OKRs
+    category: practice
+    aliases: [okr, okrs, key results, north star metric, goal setting]
+
+  # ---- measurement ----
+  - name: Experimentation
+    category: practice
+    aliases: [a/b test, a/b testing, ab testing, experimentation,
+              split test, multivariate, holdout, statistical significance,
+              experiment design]
+  - name: Product Analytics
+    category: data
+    aliases: [product analytics, amplitude, mixpanel, heap, pendo,
+              google analytics, looker, tableau, power bi, metrics dashboard]
+  - name: Funnel Analysis
+    category: data
+    aliases: [funnel, conversion rate, drop-off, activation rate,
+              acquisition funnel, aarrr]
+  - name: Retention
+    category: data
+    aliases: [retention, churn, cohort analysis, ltv, lifetime value,
+              engagement metrics, dau, mau, stickiness]
+  - name: Pricing
+    category: domain
+    aliases: [pricing, packaging, monetization, monetisation, willingness to pay,
+              revenue model, subscription model]
+  - name: Forecasting
+    category: data
+    aliases: [forecasting, business case, financial model, sizing the market,
+              tam, revenue projection]
+
+  # ---- ways of working ----
+  - name: Agile Delivery
+    category: practice
+    aliases: [scrum, sprint planning, standup, stand-up, retrospective,
+              agile ceremonies, kanban board, story points, user stories]
+  - name: Product Ops
+    category: practice
+    aliases: [product operations, product ops, process improvement,
+              operational excellence, workflow design]
+  - name: Roadmap Tools
+    category: practice
+    aliases: [jira, confluence, productboard, aha!, linear, asana, notion,
+              airtable, monday.com]
+  - name: Design Collaboration
+    category: frontend
+    aliases: [figma, design partner, wireframe, prototype, mockup,
+              design review, design system, user flows]
+
+  # ---- domains a PM is hired into ----
+  - name: Platform Product
+    category: domain
+    aliases: [platform product, api product, developer product,
+              internal platform, infrastructure product]
+  - name: Growth
+    category: domain
+    aliases: [growth product, growth loops, viral loop, onboarding funnel,
+              activation, referral program, plg, product-led growth]
+  - name: Marketplace Product
+    category: domain
+    aliases: [two-sided marketplace, supply and demand, liquidity,
+              matching algorithm, seller tools, buyer experience]
+  - name: AI Product
+    category: ai
+    aliases: [ai product, ml product, llm product, ai features,
+              model behaviour, model behavior, human in the loop,
+              ai-powered, evaluation criteria for models]
+  - name: Trust and Safety
+    category: security
+    aliases: [trust and safety, content policy, abuse prevention,
+              moderation policy, risk product]
+  - name: Compliance Product
+    category: security
+    aliases: [regulatory requirements, compliance workflows, audit trail,
+              consent management, data subject request]
+
+  # ---- technical literacy expected of PMs ----
+  - name: SQL Literacy
+    category: data
+    aliases: [write sql, sql queries, query data, self-serve analytics,
+              comfortable with sql, basic sql]
+  - name: API Literacy
+    category: backend
+    aliases: [api design, rest api, api documentation, webhooks,
+              technical architecture, system diagram, data model]

@@ -1,0 +1,506 @@
+# Companies whose job boards we read.
+#
+# tier 1   = checked every few minutes (where you most want to be early)
+# tier 2   = checked hourly
+# sector   = used by the sector analytics page. Edit freely; anything left
+#            blank is guessed from the job descriptions instead.
+#
+# Boards that stop responding are marked inactive automatically, so it is safe
+# to guess at a token here.
+
+companies:
+  # ---- tier 1: high-volume early-career software hirers ----
+  - {ats: greenhouse, token: stripe,     name: Stripe,      sector: Fintech,     tier: 1}
+  - {ats: greenhouse, token: databricks, name: Databricks,  sector: Data Infrastructure, tier: 1}
+  - {ats: greenhouse, token: datadog,    name: Datadog,     sector: Developer Tools, tier: 1}
+  - {ats: greenhouse, token: cloudflare, name: Cloudflare,  sector: Security,    tier: 1}
+  - {ats: greenhouse, token: coinbase,   name: Coinbase,    sector: Fintech,     tier: 1}
+  - {ats: greenhouse, token: airbnb,     name: Airbnb,      sector: Marketplace, tier: 1}
+  - {ats: greenhouse, token: figma,      name: Figma,       sector: Productivity, tier: 1}
+  - {ats: greenhouse, token: reddit,     name: Reddit,      sector: Consumer,    tier: 1}
+  - {ats: greenhouse, token: robinhood,  name: Robinhood,   sector: Fintech,     tier: 1}
+  - {ats: greenhouse, token: instacart,  name: Instacart,   sector: Marketplace, tier: 1}
+  - {ats: ashby,      token: openai,     name: OpenAI,      sector: AI,          tier: 1}
+  - {ats: ashby,      token: ramp,       name: Ramp,        sector: Fintech,     tier: 1}
+  - {ats: ashby,      token: notion,     name: Notion,      sector: Productivity, tier: 1}
+  - {ats: ashby,      token: cursor,     name: Cursor,      sector: AI,          tier: 1}
+  - {ats: ashby,      token: plaid,      name: Plaid,       sector: Fintech,     tier: 1}
+  - {ats: lever,      token: palantir,   name: Palantir,    sector: Aerospace & Defense, tier: 1}
+
+  # ---- AI ----
+  - {ats: ashby, token: anthropic,    name: Anthropic,    sector: AI}
+  - {ats: ashby, token: perplexityai, name: Perplexity,   sector: AI}
+  - {ats: ashby, token: harvey,       name: Harvey,       sector: AI}
+  - {ats: ashby, token: sierra,       name: Sierra,       sector: AI}
+  - {ats: ashby, token: cognition,    name: Cognition,    sector: AI}
+  - {ats: ashby, token: decagon,      name: Decagon,      sector: AI}
+  - {ats: ashby, token: mercor,       name: Mercor,       sector: AI}
+  - {ats: ashby, token: baseten,      name: Baseten,      sector: AI}
+  - {ats: ashby, token: together,     name: Together AI,  sector: AI}
+  - {ats: ashby, token: fireworks,    name: Fireworks AI, sector: AI}
+  - {ats: ashby, token: groq,         name: Groq,         sector: AI}
+  - {ats: ashby, token: runwayml,     name: Runway,       sector: AI}
+  - {ats: ashby, token: elevenlabs,   name: ElevenLabs,   sector: AI}
+  - {ats: ashby, token: suno,         name: Suno,         sector: AI}
+  - {ats: ashby, token: hebbia,       name: Hebbia,       sector: AI}
+  - {ats: ashby, token: glean,        name: Glean,        sector: AI}
+  - {ats: ashby, token: modal,        name: Modal,        sector: AI}
+  - {ats: ashby, token: unstructured,  name: Unstructured, sector: AI}
+  - {ats: ashby, token: weights-and-biases, name: Weights & Biases, sector: AI}
+  - {ats: greenhouse, token: scaleai,  name: Scale AI,     sector: AI}
+
+  # ---- Fintech ----
+  - {ats: greenhouse, token: affirm,       name: Affirm,        sector: Fintech}
+  - {ats: greenhouse, token: brex,         name: Brex,          sector: Fintech}
+  - {ats: greenhouse, token: chime,        name: Chime,         sector: Fintech}
+  - {ats: greenhouse, token: betterment,   name: Betterment,    sector: Fintech}
+  - {ats: greenhouse, token: mercury,      name: Mercury,       sector: Fintech}
+  - {ats: greenhouse, token: marqeta,      name: Marqeta,       sector: Fintech}
+  - {ats: greenhouse, token: sofi,         name: SoFi,          sector: Fintech}
+  - {ats: greenhouse, token: circle,       name: Circle,        sector: Fintech}
+  - {ats: greenhouse, token: gemini,       name: Gemini,        sector: Fintech}
+  - {ats: greenhouse, token: blockchain,   name: Blockchain.com, sector: Fintech}
+  - {ats: greenhouse, token: alloy,        name: Alloy,         sector: Fintech}
+  - {ats: greenhouse, token: unit21,       name: Unit21,        sector: Fintech}
+  - {ats: greenhouse, token: upstart,      name: Upstart,       sector: Fintech}
+  - {ats: greenhouse, token: lendingclub,  name: LendingClub,   sector: Fintech}
+  - {ats: greenhouse, token: creditkarma,  name: Credit Karma,  sector: Fintech}
+  - {ats: greenhouse, token: nerdwallet,   name: NerdWallet,    sector: Fintech}
+  - {ats: greenhouse, token: earnin,       name: Earnin,        sector: Fintech}
+  - {ats: greenhouse, token: addepar,      name: Addepar,       sector: Fintech}
+  - {ats: greenhouse, token: carta,        name: Carta,         sector: Fintech}
+  - {ats: lever,      token: kraken,       name: Kraken,        sector: Fintech}
+  - {ats: lever,      token: chainalysis,  name: Chainalysis,   sector: Fintech}
+
+  # ---- Healthcare & life sciences ----
+  - {ats: greenhouse, token: zocdoc,         name: Zocdoc,          sector: Healthcare}
+  - {ats: greenhouse, token: oscarhealth,    name: Oscar Health,    sector: Healthcare}
+  - {ats: greenhouse, token: devoted,        name: Devoted Health,  sector: Healthcare}
+  - {ats: greenhouse, token: cedar,          name: Cedar,           sector: Healthcare}
+  - {ats: greenhouse, token: komodohealth,   name: Komodo Health,   sector: Healthcare}
+  - {ats: greenhouse, token: tempus,         name: Tempus,          sector: Healthcare}
+  - {ats: greenhouse, token: recursion,      name: Recursion,       sector: Healthcare}
+  - {ats: greenhouse, token: ginkgobioworks, name: Ginkgo Bioworks, sector: Healthcare}
+  - {ats: greenhouse, token: benchling,      name: Benchling,       sector: Healthcare}
+  - {ats: ashby,      token: abridge,        name: Abridge,         sector: Healthcare}
+  - {ats: ashby,      token: openevidence,   name: OpenEvidence,    sector: Healthcare}
+  - {ats: ashby,      token: whoop,          name: WHOOP,           sector: Healthcare}
+  - {ats: lever,      token: veeva,          name: Veeva,           sector: Healthcare}
+  - {ats: lever,      token: pathai,         name: PathAI,          sector: Healthcare}
+
+  # ---- Security ----
+  - {ats: greenhouse, token: wiz,      name: Wiz,      sector: Security}
+  - {ats: greenhouse, token: snyk,     name: Snyk,     sector: Security}
+  - {ats: greenhouse, token: okta,     name: Okta,     sector: Security}
+  - {ats: greenhouse, token: auth0,    name: Auth0,    sector: Security}
+  - {ats: greenhouse, token: verkada,  name: Verkada,  sector: Security}
+  - {ats: ashby,      token: vanta,    name: Vanta,    sector: Security}
+  - {ats: ashby,      token: persona,  name: Persona,  sector: Security}
+  - {ats: ashby,      token: middesk,  name: Middesk,  sector: Security}
+
+  # ---- Data infrastructure ----
+  - {ats: greenhouse, token: mongodb,       name: MongoDB,        sector: Data Infrastructure}
+  - {ats: greenhouse, token: elastic,       name: Elastic,        sector: Data Infrastructure}
+  - {ats: greenhouse, token: confluent,     name: Confluent,      sector: Data Infrastructure}
+  - {ats: greenhouse, token: cockroachlabs, name: Cockroach Labs, sector: Data Infrastructure}
+  - {ats: greenhouse, token: redis,         name: Redis,          sector: Data Infrastructure}
+  - {ats: greenhouse, token: neo4j,         name: Neo4j,          sector: Data Infrastructure}
+  - {ats: greenhouse, token: dbtlabs,       name: dbt Labs,       sector: Data Infrastructure}
+  - {ats: greenhouse, token: starburst,     name: Starburst,      sector: Data Infrastructure}
+  - {ats: greenhouse, token: fivetran,      name: Fivetran,       sector: Data Infrastructure}
+  - {ats: greenhouse, token: airbyte,       name: Airbyte,        sector: Data Infrastructure}
+  - {ats: greenhouse, token: astronomer,    name: Astronomer,     sector: Data Infrastructure}
+  - {ats: greenhouse, token: hashicorp,     name: HashiCorp,      sector: Data Infrastructure}
+  - {ats: ashby,      token: clickhouse,    name: ClickHouse,     sector: Data Infrastructure}
+  - {ats: ashby,      token: supabase,      name: Supabase,       sector: Data Infrastructure}
+  - {ats: ashby,      token: neon,          name: Neon,           sector: Data Infrastructure}
+  - {ats: ashby,      token: temporal,      name: Temporal,       sector: Data Infrastructure}
+
+  # ---- Developer tools ----
+  - {ats: greenhouse, token: gitlab,      name: GitLab,      sector: Developer Tools}
+  - {ats: greenhouse, token: vercel,      name: Vercel,      sector: Developer Tools}
+  - {ats: greenhouse, token: grafanalabs, name: Grafana Labs, sector: Developer Tools}
+  - {ats: greenhouse, token: sourcegraph, name: Sourcegraph, sector: Developer Tools}
+  - {ats: greenhouse, token: pagerduty,   name: PagerDuty,   sector: Developer Tools}
+  - {ats: greenhouse, token: sumologic,   name: Sumo Logic,  sector: Developer Tools}
+  - {ats: greenhouse, token: fastly,      name: Fastly,      sector: Developer Tools}
+  - {ats: ashby,      token: sentry,      name: Sentry,      sector: Developer Tools}
+  - {ats: ashby,      token: posthog,     name: PostHog,     sector: Developer Tools}
+  - {ats: ashby,      token: replit,      name: Replit,      sector: Developer Tools}
+  - {ats: ashby,      token: zed,         name: Zed,         sector: Developer Tools}
+  - {ats: ashby,      token: railway,     name: Railway,     sector: Developer Tools}
+  - {ats: ashby,      token: render,      name: Render,      sector: Developer Tools}
+  - {ats: ashby,      token: warp,        name: Warp,        sector: Developer Tools}
+  - {ats: ashby,      token: linear,      name: Linear,      sector: Developer Tools}
+
+  # ---- Productivity & business software ----
+  - {ats: greenhouse, token: asana,           name: Asana,       sector: Productivity}
+  - {ats: greenhouse, token: airtable,        name: Airtable,    sector: Productivity}
+  - {ats: greenhouse, token: dropbox,         name: Dropbox,     sector: Productivity}
+  - {ats: greenhouse, token: box,             name: Box,         sector: Productivity}
+  - {ats: greenhouse, token: smartsheet,      name: Smartsheet,  sector: Productivity}
+  - {ats: greenhouse, token: monday,          name: monday.com,  sector: Productivity}
+  - {ats: greenhouse, token: miro,            name: Miro,        sector: Productivity}
+  - {ats: greenhouse, token: canva,           name: Canva,       sector: Productivity}
+  - {ats: greenhouse, token: grammarly,       name: Grammarly,   sector: Productivity}
+  - {ats: greenhouse, token: zapier,          name: Zapier,      sector: Productivity}
+  - {ats: greenhouse, token: calendly,        name: Calendly,    sector: Productivity}
+  - {ats: greenhouse, token: webflow,         name: Webflow,     sector: Productivity}
+  - {ats: greenhouse, token: lattice,         name: Lattice,     sector: Productivity}
+  - {ats: greenhouse, token: amplitude,       name: Amplitude,   sector: Productivity}
+  - {ats: greenhouse, token: braze,           name: Braze,       sector: Productivity}
+  - {ats: greenhouse, token: klaviyo,         name: Klaviyo,     sector: Productivity}
+  - {ats: greenhouse, token: iterable,        name: Iterable,    sector: Productivity}
+  - {ats: greenhouse, token: attentivemobile, name: Attentive,   sector: Productivity}
+  - {ats: greenhouse, token: sprinklr,        name: Sprinklr,    sector: Productivity}
+  - {ats: greenhouse, token: bloomreach,      name: Bloomreach,  sector: Productivity}
+  - {ats: greenhouse, token: gusto,           name: Gusto,       sector: Productivity}
+  - {ats: greenhouse, token: rippling,        name: Rippling,    sector: Productivity}
+  - {ats: greenhouse, token: segment,         name: Segment,     sector: Productivity}
+  - {ats: greenhouse, token: twilio,          name: Twilio,      sector: Productivity}
+  - {ats: ashby,      token: deel,            name: Deel,        sector: Productivity}
+  - {ats: ashby,      token: pave,            name: Pave,        sector: Productivity}
+
+  # ---- Consumer, media & marketplaces ----
+  - {ats: greenhouse, token: discord,      name: Discord,       sector: Consumer}
+  - {ats: greenhouse, token: spotify,      name: Spotify,       sector: Consumer}
+  - {ats: greenhouse, token: twitch,       name: Twitch,        sector: Consumer}
+  - {ats: greenhouse, token: duolingo,     name: Duolingo,      sector: Consumer}
+  - {ats: greenhouse, token: peloton,      name: Peloton,       sector: Consumer}
+  - {ats: greenhouse, token: sonos,        name: Sonos,         sector: Consumer}
+  - {ats: greenhouse, token: doordash,     name: DoorDash,      sector: Marketplace}
+  - {ats: greenhouse, token: grubhub,      name: Grubhub,       sector: Marketplace}
+  - {ats: greenhouse, token: etsy,         name: Etsy,          sector: Marketplace}
+  - {ats: greenhouse, token: wayfair,      name: Wayfair,       sector: Marketplace}
+  - {ats: greenhouse, token: squarespace,  name: Squarespace,   sector: Marketplace}
+  - {ats: greenhouse, token: warbyparker,  name: Warby Parker,  sector: Marketplace}
+  - {ats: greenhouse, token: allbirds,     name: Allbirds,      sector: Marketplace}
+  - {ats: greenhouse, token: toasttab,     name: Toast,         sector: Marketplace}
+  - {ats: greenhouse, token: olo,          name: Olo,           sector: Marketplace}
+  - {ats: lever,      token: gopuff,       name: Gopuff,        sector: Marketplace}
+  - {ats: lever,      token: matchgroup,   name: Match Group,   sector: Consumer}
+  - {ats: lever,      token: fetchrewards, name: Fetch,         sector: Marketplace}
+  - {ats: ashby,      token: scribd,       name: Scribd,        sector: Consumer}
+
+  # ---- Gaming ----
+  - {ats: greenhouse, token: unity,     name: Unity,       sector: Gaming}
+  - {ats: greenhouse, token: roblox,    name: Roblox,      sector: Gaming}
+  - {ats: greenhouse, token: epicgames, name: Epic Games,  sector: Gaming}
+  - {ats: greenhouse, token: riotgames, name: Riot Games,  sector: Gaming}
+
+  # ---- Mobility & robotics ----
+  - {ats: greenhouse, token: nuro,        name: Nuro,         sector: Mobility & Robotics}
+  - {ats: greenhouse, token: zoox,        name: Zoox,         sector: Mobility & Robotics}
+  - {ats: greenhouse, token: waymo,       name: Waymo,        sector: Mobility & Robotics}
+  - {ats: greenhouse, token: rivian,      name: Rivian,       sector: Mobility & Robotics}
+  - {ats: greenhouse, token: lucidmotors, name: Lucid Motors, sector: Mobility & Robotics}
+  - {ats: greenhouse, token: skydio,      name: Skydio,       sector: Mobility & Robotics}
+  - {ats: greenhouse, token: matterport,  name: Matterport,   sector: Mobility & Robotics}
+  - {ats: greenhouse, token: applieddintelligence, name: Applied Intuition, sector: Mobility & Robotics}
+
+  # ---- Aerospace & defense ----
+  - {ats: greenhouse, token: anduril,         name: Anduril,          sector: Aerospace & Defense}
+  - {ats: greenhouse, token: joby,            name: Joby Aviation,    sector: Aerospace & Defense}
+  - {ats: greenhouse, token: relativityspace, name: Relativity Space, sector: Aerospace & Defense}
+  - {ats: greenhouse, token: astranis,        name: Astranis,         sector: Aerospace & Defense}
+  - {ats: greenhouse, token: planet,          name: Planet Labs,      sector: Aerospace & Defense}
+  - {ats: greenhouse, token: shieldai,        name: Shield AI,        sector: Aerospace & Defense}
+
+  # ---- Logistics & operations ----
+  - {ats: greenhouse, token: flexport, name: Flexport, sector: Logistics}
+  - {ats: greenhouse, token: samsara,  name: Samsara,  sector: Logistics}
+
+  # ---- Education ----
+  - {ats: greenhouse, token: coursera, name: Coursera, sector: Education}
+  - {ats: greenhouse, token: udemy,    name: Udemy,    sector: Education}
+  - {ats: greenhouse, token: udacity,  name: Udacity,  sector: Education}
+  - {ats: greenhouse, token: chegg,    name: Chegg,    sector: Education}
+
+  # ---- Other enterprise ----
+  - {ats: lever, token: nielsen, name: Nielsen, sector: Enterprise}
+  - {ats: lever, token: voleon,  name: Voleon,  sector: Fintech}
+  - {ats: ashby, token: turing,  name: Turing,  sector: Enterprise}
+  - {ats: ashby, token: found,   name: Found,   sector: Healthcare}
+
+  # ---- large employers running their own applicant systems ----
+  # These are the reason MAANG-scale companies were invisible: none of them use
+  # Greenhouse, Ashby or Lever. Amazon has its own platform; most of the rest
+  # are on Workday, whose token is tenant:pod:site taken from the careers URL.
+  - {ats: amazon, token: "Software Development", name: Amazon, sector: Marketplace, tier: 1}
+  - {ats: workday, token: "nvidia:wd5:NVIDIAExternalCareerSite", name: NVIDIA, sector: AI, tier: 1}
+  - {ats: workday, token: "salesforce:wd12:External_Career_Site", name: Salesforce, sector: Productivity, tier: 1}
+  - {ats: workday, token: "adobe:wd5:external_experienced", name: Adobe, sector: Productivity, tier: 1}
+
+  # ---- aggregated new-grad boards ----
+  # Second-hand and description-free, so they are kept out of the skills and
+  # sector figures (see has_content in db.py). They exist to catch employers
+  # whose own system has no readable feed, and to feed `tt discover`.
+  - {ats: jobboard, token: "speedyapply/2027-SWE-College-Jobs:main:NEW_GRAD_USA.md", name: "New Grad board (2027)", sector: "", tier: 1}
+  - {ats: jobboard, token: "SimplifyJobs/New-Grad-Positions:dev:README.md", name: "SimplifyJobs New Grad", sector: Gaming, tier: 1}
+
+  # ---- added by `python -m tt discover --add` ----
+  - {ats: greenhouse, token: spacex, name: "SpaceX", sector: Aerospace & Defense}
+  - {ats: workday, token: kbr:wd5:kbr_careers, name: "KBR", sector: Aerospace & Defense}
+  - {ats: workday, token: leidos:wd5:external, name: "Leidos", sector: Aerospace & Defense}
+  - {ats: workday, token: globalhr:wd5:rec_rtx_ext_gateway, name: "Raytheon", sector: Aerospace & Defense}
+  - {ats: workday, token: pae:wd1:amentum_careers, name: "Amentum", sector: Aerospace & Defense}
+  - {ats: workday, token: bah:wd1:bah_jobs, name: "Booz Allen", sector: Aerospace & Defense}
+  - {ats: workday, token: generalmotors:wd5:careers_gm, name: "General Motors", sector: Mobility & Robotics}
+  - {ats: greenhouse, token: trueanomalyinc, name: "True Anomaly", sector: Aerospace & Defense}
+  - {ats: workday, token: avav:wd1:avav, name: "AeroVironment", sector: Aerospace & Defense}
+  - {ats: workday, token: ngc:wd1:northrop_grumman_external_site, name: "Northrop Grumman", sector: Aerospace & Defense}
+  - {ats: greenhouse, token: accenturefederalservices, name: "Accenture Federal Services", sector: Aerospace & Defense}
+  - {ats: workday, token: caci:wd1:external, name: "CACI", sector: Aerospace & Defense}
+  - {ats: greenhouse, token: andurilindustries, name: "Anduril", sector: Aerospace & Defense}
+  - {ats: ashby, token: applied, name: "Applied Intuition", sector: Mobility & Robotics}
+  - {ats: workday, token: blueorigin:wd5:blueorigin, name: "Blue Origin", sector: Aerospace & Defense}
+  - {ats: workday, token: flir:wd1:flircareers, name: "Teledyne", sector: ""}
+  - {ats: greenhouse, token: powerdigitalmarketing, name: "Power Digital", sector: ""}
+  - {ats: workday, token: cae:wd3:career, name: "CAE", sector: ""}
+  - {ats: workday, token: kla:wd1:search, name: "KLA", sector: Enterprise}
+  - {ats: workday, token: relx:wd3:risksolutions, name: "LexisNexis Risk Solutions", sector: Enterprise}
+  - {ats: workday, token: relx:wd3:relx, name: "RELX", sector: Enterprise}
+  - {ats: workday, token: fmr:wd1:targeted, name: "Fidelity Investments", sector: Fintech}
+  - {ats: workday, token: parsons:wd5:search, name: "Parsons", sector: Aerospace & Defense}
+  - {ats: workday, token: snapchat:wd1:snap, name: "Snap", sector: Consumer}
+  - {ats: workday, token: nvidia:wd5:nvidiaexternalcareersite, name: "NVIDIA", sector: Mobility & Robotics}
+  - {ats: workday, token: homedepot:wd5:careerdepot, name: "Home Depot", sector: ""}
+  - {ats: workday, token: motorolasolutions:wd5:careers, name: "Motorola Solutions", sector: ""}
+  - {ats: workday, token: paypal:wd1:jobs, name: "PayPal", sector: ""}
+  - {ats: workday, token: guidehouse:wd1:external, name: "Guidehouse", sector: Enterprise}
+  - {ats: workday, token: icf:wd5:icfexternal_career_site, name: "ICF", sector: Aerospace & Defense}
+  - {ats: workday, token: intel:wd1:external, name: "Intel", sector: Enterprise}
+  - {ats: greenhouse, token: testnisc, name: "National Information Solutions Cooperative", sector: ""}
+  - {ats: workday, token: varsitybrands:wd503:externalcareersite, name: "Varsity Brands", sector: ""}
+  - {ats: workday, token: ms:wd5:external, name: "Morgan Stanley", sector: ""}
+  - {ats: workday, token: boeing:wd1:external_subsidiary, name: "Boeing", sector: Aerospace & Defense}
+  - {ats: workday, token: haier:wd3:ge_appliances, name: "GE Appliances", sector: ""}
+  - {ats: workday, token: hp:wd5:exteu-ac-careersite, name: "HP", sector: ""}
+  - {ats: workday, token: nwis:wd12:nw, name: "Nightwing", sector: Aerospace & Defense}
+  - {ats: workday, token: cgm:wd3:cgm, name: "CompuGroup Medical SE & Co. KGaA", sector: ""}
+  - {ats: workday, token: quickenloans:wd5:rocket_careers, name: "Rocket Companies", sector: Fintech}
+  - {ats: ashby, token: pariveda, name: "Pariveda", sector: ""}
+  - {ats: greenhouse, token: simplisafe, name: "SimpliSafe", sector: ""}
+  - {ats: greenhouse, token: fiveringsllc, name: "Five Rings", sector: ""}
+  - {ats: greenhouse, token: oneimaging, name: "OneImaging", sector: ""}
+  - {ats: ashby, token: clera, name: "Clera", sector: AI}
+  - {ats: workday, token: curtisswright:wd1:cw_external_career_site, name: "Curtiss-Wright", sector: ""}
+  - {ats: workday, token: hpe:wd5:acjobsite, name: "Hewlett Packard Enterprise", sector: Enterprise}
+  - {ats: workday, token: hpe:wd5:jobsathpe, name: "Hewlett Packard Enterprise", sector: Enterprise}
+  - {ats: workday, token: lnw:wd5:lightwonderexternalcareers, name: "Light & Wonder", sector: ""}
+  - {ats: workday, token: uhaul:wd1:uhauljobs, name: "U-Haul", sector: ""}
+  - {ats: ashby, token: ontic, name: "Ontic", sector: ""}
+  - {ats: workday, token: amat:wd1:external, name: "Applied Materials", sector: Enterprise}
+  - {ats: workday, token: boeing:wd1:external_careers, name: "Boeing", sector: Aerospace & Defense}
+  - {ats: ashby, token: valon, name: "Valon Tech", sector: ""}
+  - {ats: lever, token: zoox, name: "Zoox", sector: Mobility & Robotics}
+  - {ats: workday, token: nidec:wd1:nidec, name: "Nidec", sector: ""}
+  - {ats: greenhouse, token: sharkninjaoperatingllc, name: "SharkNinja", sector: Enterprise}
+  - {ats: workday, token: choicehotels:wd5:external, name: "Choice Hotels", sector: ""}
+  - {ats: greenhouse, token: impact, name: "Impact", sector: ""}
+  - {ats: workday, token: snc:wd1:snc_external_career_site, name: "Sierra Nevada Corporation", sector: ""}
+  - {ats: workday, token: gdit:wd5:external_career_site, name: "GDIT", sector: Enterprise}
+  - {ats: workday, token: hp:wd5:externalcareersite, name: "HP", sector: ""}
+  - {ats: workday, token: pg:wd5:1000, name: "P&G - Procter & Gamble", sector: ""}
+  - {ats: greenhouse, token: icapitalnetwork, name: "ICONIQ Capital", sector: ""}
+  - {ats: lever, token: datalabusa, name: "DataLab USA", sector: ""}
+  - {ats: greenhouse, token: freeformfuturecorp, name: "Freeform", sector: AI}
+  - {ats: workday, token: cvshealth:wd1:cvs_health_careers, name: "CVS Health", sector: Gaming}
+  - {ats: workday, token: blackrock:wd1:blackrock_professional, name: "BlackRock", sector: ""}
+  - {ats: workday, token: lennar:wd1:lennar_jobs, name: "Lennar", sector: ""}
+  - {ats: workday, token: axos:wd5:axos, name: "Axos Bank", sector: ""}
+  - {ats: lever, token: weride, name: "WeRide.ai", sector: ""}
+  - {ats: workday, token: idexx:wd1:idexx, name: "IDEXX", sector: ""}
+  - {ats: ashby, token: lightfield, name: "Lightfield", sector: ""}
+  - {ats: ashby, token: retell-ai, name: "Retell AI", sector: ""}
+  - {ats: ashby, token: kayak, name: "KAYAK", sector: ""}
+  - {ats: greenhouse, token: pmg, name: "PMG", sector: ""}
+  - {ats: ashby, token: netic, name: "Netic", sector: ""}
+  - {ats: greenhouse, token: chaosindustries, name: "CHAOS Industries", sector: ""}
+  - {ats: ashby, token: thesirius, name: "Sirius", sector: ""}
+  - {ats: workday, token: salesforce:wd12:external_career_site, name: "Salesforce", sector: ""}
+  - {ats: workday, token: salesforce:wd12:futureforce_newgradroles, name: "Salesforce", sector: ""}
+  - {ats: lever, token: belvederetrading, name: "Belvedere Trading", sector: ""}
+  - {ats: greenhouse, token: adyen, name: "Adyen", sector: ""}
+  - {ats: ashby, token: commure, name: "Commure", sector: ""}
+  - {ats: greenhouse, token: klaviyocampus, name: "Klaviyo", sector: ""}
+  - {ats: ashby, token: pangramlabs, name: "Pangram Labs", sector: ""}
+  - {ats: workday, token: expedia:wd108:search, name: "Expedia Group", sector: Gaming}
+  - {ats: workday, token: relx:wd3:lexisnexislegal, name: "LexisNexis", sector: Enterprise}
+  - {ats: lever, token: ModernIntelligence, name: "Modern Intelligence", sector: Enterprise}
+  - {ats: workday, token: web:wd1:externalcareersite, name: "Newfold Digital", sector: ""}
+  - {ats: lever, token: rover, name: "Rover.com", sector: ""}
+  - {ats: workday, token: argonne:wd1:argonne_careers, name: "Argonne National Laboratory", sector: ""}
+  - {ats: workday, token: btisolutions:wd12:external, name: "BTI Solutions", sector: ""}
+  - {ats: workday, token: btisolutions:wd12:jobposting, name: "BTI Solutions", sector: ""}
+  - {ats: workday, token: carrier:wd5:jobs, name: "Carrier", sector: ""}
+  - {ats: workday, token: cubic:wd1:cubic_usa_careers, name: "Cubic", sector: ""}
+  - {ats: ashby, token: greenboard, name: "Greenboard", sector: ""}
+  - {ats: workday, token: horizonmedia:wd1:careeropportunities, name: "Horizon Media", sector: ""}
+  - {ats: workday, token: humana:wd5:humana_external_career_site, name: "Humana", sector: ""}
+  - {ats: workday, token: massmutual:wd1:mmcareers, name: "MassMutual", sector: ""}
+  - {ats: workday, token: mastercard:wd1:contractorconversion, name: "Mastercard", sector: Mobility & Robotics}
+  - {ats: workday, token: bcbst:wd1:external, name: "BlueCross BlueShield of Tennessee", sector: ""}
+  - {ats: ashby, token: careerswift.ai, name: "Careerswift", sector: ""}
+  - {ats: ashby, token: kustomer, name: "Kustomer", sector: ""}
+  - {ats: greenhouse, token: lexingtonmedical, name: "Lexington Medical", sector: ""}
+  - {ats: workday, token: micron:wd1:external, name: "Micron Technology", sector: ""}
+  - {ats: lever, token: nationaljournal, name: "National Journal", sector: ""}
+  - {ats: workday, token: radiancetech:wd12:radiance_external, name: "Radiance Technologies", sector: ""}
+  - {ats: workday, token: redhat:wd5:jobs, name: "Red Hat", sector: ""}
+  - {ats: workday, token: statestreet:wd1:global, name: "State Street", sector: Fintech}
+  - {ats: workday, token: cigna:wd5:cignacareers, name: "The Cigna Group", sector: ""}
+  - {ats: workday, token: lseg:wd3:careers, name: "LSEG", sector: ""}
+  - {ats: workday, token: cat:wd5:caterpillarcareers, name: "Caterpillar", sector: ""}
+  - {ats: workday, token: hpe:wd5:wfmathpe, name: "Hewlett Packard Enterprise", sector: Enterprise}
+  - {ats: ashby, token: aiprise, name: "AiPrise", sector: ""}
+  - {ats: greenhouse, token: garnerhealth, name: "Garner Health", sector: Gaming}
+  - {ats: greenhouse, token: nisc, name: "National Information Solutions Cooperative", sector: ""}
+  - {ats: greenhouse, token: newrelic, name: "New Relic", sector: ""}
+  - {ats: greenhouse, token: vestwell, name: "Vestwell", sector: ""}
+  - {ats: greenhouse, token: yext, name: "Yext", sector: ""}
+  - {ats: workday, token: geico:wd1:external, name: "GEICO", sector: ""}
+  - {ats: workday, token: huntington:wd12:hnbcareers, name: "Huntington Bank", sector: ""}
+  - {ats: workday, token: rsm:wd1:rsmcareers, name: "RSM", sector: ""}
+  - {ats: greenhouse, token: selffinancial, name: "Self Financial", sector: ""}
+  - {ats: workday, token: tsc:wd12:tsc-careers, name: "Technology Service Corporation", sector: ""}
+  - {ats: lever, token: The-Battery-Network, name: "The Battery Network", sector: ""}
+  - {ats: greenhouse, token: torcrobotics, name: "Torc Robotics", sector: Mobility & Robotics}
+  - {ats: ashby, token: valinor, name: "Valinor", sector: ""}
+  - {ats: workday, token: amainc:wd12:ama_careers, name: "Analytical Mechanics Associates", sector: ""}
+  - {ats: workday, token: kiongroup:wd3:kion_scs, name: "Kion Group", sector: ""}
+  - {ats: workday, token: kiongroup:wd3:kiongroup, name: "Kion Group", sector: ""}
+  - {ats: lever, token: kobie, name: "Kobie", sector: ""}
+  - {ats: ashby, token: siftstack, name: "Sift", sector: ""}
+  - {ats: ashby, token: trulioo, name: "Trulioo", sector: ""}
+  - {ats: ashby, token: arch.co, name: "Arch", sector: ""}
+  - {ats: greenhouse, token: axon, name: "Axon", sector: ""}
+  - {ats: workday, token: mii:wd5:mitek, name: "MiTek", sector: ""}
+  - {ats: workday, token: ptc:wd1:ptc, name: "PTC", sector: ""}
+  - {ats: greenhouse, token: tebra, name: "Tebra", sector: ""}
+  - {ats: workday, token: ciena:wd5:careers, name: "Ciena", sector: ""}
+  - {ats: greenhouse, token: everlaw, name: "Everlaw", sector: ""}
+  - {ats: workday, token: kla:wd1:ur, name: "KLA", sector: Enterprise}
+  - {ats: workday, token: vermeer:wd5:externalcareersite, name: "Vermeer", sector: ""}
+  - {ats: workday, token: alation:wd503:externalsite, name: "Alation", sector: ""}
+  - {ats: workday, token: silabs:wd1:siliconlabscareers, name: "Silicon Labs", sector: ""}
+  - {ats: workday, token: td:wd3:td_bank_careers, name: "TD Bank", sector: ""}
+  - {ats: greenhouse, token: zyngacareers, name: "Zynga", sector: ""}
+  - {ats: workday, token: invesco:wd1:ivz, name: "Invesco", sector: ""}
+  - {ats: lever, token: deltasands, name: "Delta Solutions & Strategies", sector: ""}
+  - {ats: workday, token: nelnet:wd1:mynelnet, name: "Nelnet", sector: ""}
+  - {ats: greenhouse, token: teletrackingtechnologiesinc, name: "TeleTracking Technologies", sector: ""}
+  - {ats: workday, token: travelers:wd5:external, name: "Travelers", sector: Fintech}
+  - {ats: workday, token: vareximaging:wd103:external_career_site, name: "Varex Imaging", sector: ""}
+  - {ats: greenhouse, token: addepar1, name: "Addepar", sector: ""}
+  - {ats: lever, token: allegiantair, name: "Allegiant", sector: ""}
+  - {ats: greenhouse, token: archer56, name: "Archer", sector: ""}
+  - {ats: workday, token: jj:wd5:jj, name: "Johnson & Johnson", sector: ""}
+  - {ats: workday, token: thermofisher:wd5:thermofishercareers, name: "Thermo Fisher Scientific", sector: Enterprise}
+  - {ats: workday, token: wellsky:wd1:wellskycareers, name: "WellSky", sector: ""}
+  - {ats: ashby, token: zip, name: "Zip", sector: ""}
+  - {ats: greenhouse, token: alarmcom, name: "Alarm.com", sector: ""}
+  - {ats: workday, token: harriscomputer:wd3:1, name: "Harris Computer", sector: ""}
+  - {ats: workday, token: lowes:wd5:lws_external_cs, name: "Lowe’s", sector: ""}
+  - {ats: ashby, token: maximor, name: "Maximor AI", sector: ""}
+  - {ats: greenhouse, token: metron, name: "Metron", sector: ""}
+  - {ats: workday, token: microchiphr:wd5:external, name: "Microchip", sector: ""}
+  - {ats: lever, token: steerbridge, name: "SteerBridge", sector: ""}
+  - {ats: workday, token: ascensushr:wd1:ascensuscareers, name: "Ascensus", sector: ""}
+  - {ats: workday, token: carislifesciences:wd12:cls, name: "Caris Life Sciences", sector: ""}
+  - {ats: greenhouse, token: sonyinteractiveentertainmentglobal, name: "PlayStation", sector: Gaming}
+  - {ats: ashby, token: greptile, name: "Greptile", sector: ""}
+  - {ats: workday, token: blackstone:wd1:blackstone_campus_careers, name: "Blackstone", sector: ""}
+  - {ats: greenhouse, token: genevatrading, name: "Geneva Trading", sector: ""}
+  - {ats: greenhouse, token: hydritechemicalco, name: "Hydrite", sector: ""}
+  - {ats: workday, token: magna:wd3:magna, name: "Magna", sector: ""}
+  - {ats: workday, token: crowe:wd12:external_careers, name: "Crowe", sector: ""}
+  - {ats: workday, token: healthcatalyst:wd5:healthcatalystcareers, name: "Health Catalyst", sector: Gaming}
+  - {ats: workday, token: highmarkhealth:wd1:highmark, name: "Highmark Health", sector: Gaming}
+  - {ats: ashby, token: koahlabs, name: "Koah Labs", sector: ""}
+  - {ats: workday, token: nike:wd1:nke, name: "Nike", sector: ""}
+  - {ats: greenhouse, token: relativity, name: "Relativity Space", sector: Aerospace & Defense}
+  - {ats: workday, token: reliaquest:wd5:reliaquest_careers, name: "ReliaQuest", sector: ""}
+  - {ats: workday, token: target:wd5:targetcareers, name: "Target", sector: ""}
+  - {ats: greenhouse, token: assystinc, name: "Assyst", sector: ""}
+  - {ats: ashby, token: composio, name: "Composio", sector: ""}
+  - {ats: workday, token: ghr:wd1:us-emplsv, name: "Bank of America", sector: ""}
+  - {ats: workday, token: ghr:wd1:lateral-us, name: "Bank of America", sector: ""}
+  - {ats: greenhouse, token: generalmatter, name: "General Matter", sector: ""}
+  - {ats: workday, token: mrisoftware:wd501:external_careersite, name: "MRI Software", sector: ""}
+  - {ats: workday, token: rollsroyce:wd3:professional, name: "Rolls-Royce", sector: ""}
+  - {ats: ashby, token: uniswap, name: "Uniswap Labs", sector: ""}
+  - {ats: workday, token: comcast:wd5:comcast_careers, name: "Xfinity", sector: ""}
+  - {ats: greenhouse, token: blend, name: "Blend", sector: ""}
+  - {ats: workday, token: copeland:wd5:copeland_external_careers_page, name: "Copeland", sector: ""}
+  - {ats: greenhouse, token: dvtrading, name: "DV Trading", sector: ""}
+  - {ats: ashby, token: nova-talent, name: "Nova Talent", sector: ""}
+  - {ats: workday, token: autostore:wd3:autostore, name: "AutoStore", sector: ""}
+  - {ats: workday, token: accenture:wd103:avanadecareers, name: "Avanade", sector: ""}
+  - {ats: workday, token: mmc:wd1:mmc, name: "Marsh McLennan", sector: ""}
+  - {ats: workday, token: psu:wd1:psu_staff, name: "Penn State", sector: ""}
+  - {ats: workday, token: swift:wd3:join-swift, name: "Swift", sector: ""}
+  - {ats: lever, token: Ketch, name: "Ketch", sector: ""}
+  - {ats: workday, token: tti:wd1:milwaukee, name: "Milwaukee Tool", sector: Enterprise}
+  - {ats: greenhouse, token: muonspace, name: "Muon", sector: Aerospace & Defense}
+  - {ats: ashby, token: nooks, name: "Nooks", sector: ""}
+  - {ats: workday, token: manh:wd5:campus, name: "Manhattan Associates", sector: ""}
+  - {ats: workday, token: premera:wd5:premera, name: "Premera", sector: ""}
+  - {ats: workday, token: remitly:wd5:remitly_careers, name: "Remitly", sector: Fintech}
+  - {ats: workday, token: roberthalf:wd1:roberthalfcareers, name: "Robert Half", sector: ""}
+  - {ats: ashby, token: polymarket, name: "Polymarket", sector: ""}
+  - {ats: ashby, token: confido, name: "Confido", sector: ""}
+  - {ats: ashby, token: handshake, name: "Handshake", sector: ""}
+  - {ats: workday, token: newrez:wd1:nrz, name: "Newrez", sector: ""}
+  - {ats: lever, token: woven-by-toyota, name: "Woven by Toyota", sector: ""}
+  - {ats: workday, token: osv-amerisure:wd5:amerisure, name: "Amerisure", sector: ""}
+  - {ats: greenhouse, token: theweathercompany, name: "The Weather Company", sector: Gaming}
+  - {ats: ashby, token: crusoe, name: "Crusoe", sector: AI}
+  - {ats: greenhouse, token: rebuildmanufacturing, name: "Re:Build Manufacturing", sector: ""}
+  - {ats: workday, token: shi:wd12:shicareers, name: "SHI", sector: ""}
+  - {ats: workday, token: allstate:wd5:allstate_careers, name: "Allstate", sector: ""}
+  - {ats: ashby, token: runsybil-jobs, name: "RunSybil", sector: ""}
+  - {ats: ashby, token: blissway, name: "Blissway", sector: ""}
+  - {ats: greenhouse, token: pipe17, name: "Pipe17", sector: ""}
+  - {ats: workday, token: calistacorp:wd1:yulista, name: "Yulista", sector: ""}
+  - {ats: greenhouse, token: kargo, name: "MyKargo", sector: ""}
+  - {ats: workday, token: aims:wd1:jobs, name: "Aims Community College", sector: ""}
+  - {ats: workday, token: globusmedical:wd5:gmed_careers, name: "Globus Medical", sector: ""}
+  - {ats: ashby, token: antares, name: "Antares", sector: ""}
+  - {ats: greenhouse, token: pathrobotics, name: "Path Robotics", sector: ""}
+  - {ats: greenhouse, token: ascend21, name: "Ascend", sector: ""}
+  - {ats: ashby, token: northwoodspace, name: "northwoodspace", sector: ""}
+  - {ats: workday, token: clearwateranalytics:wd1:clearwater_analytics_careers, name: "Clearwater Analytics", sector: Gaming}
+  - {ats: ashby, token: pylon-labs, name: "Pylon", sector: ""}
+  - {ats: ashby, token: faros-ai, name: "Faros", sector: ""}
+  - {ats: workday, token: huron:wd1:huroncareers, name: "Huron", sector: ""}
+  - {ats: workday, token: kcura:wd1:external_career_site, name: "Relativity", sector: ""}
+  - {ats: lever, token: sonarsource, name: "Sonar", sector: ""}
+  - {ats: workday, token: analogdevices:wd1:external, name: "Analog Devices", sector: ""}
+  - {ats: greenhouse, token: waymark, name: "Waymark", sector: ""}
+  - {ats: workday, token: hawks:wd1:external, name: "Atlanta Hawks", sector: ""}
+  - {ats: greenhouse, token: obsidiansecurity, name: "Obsidian Security", sector: ""}
+  - {ats: workday, token: adtran:wd3:adtran, name: "Adtran", sector: ""}
+  - {ats: ashby, token: wealth-com, name: "Wealth.com", sector: Gaming}
+  - {ats: workday, token: cmu:wd115:cmu, name: "Carnegie Mellon University", sector: Enterprise}
+  - {ats: workday, token: nxp:wd3:careers, name: "NXP Semiconductors", sector: ""}
+  - {ats: lever, token: agile-defense, name: "Agile Defense", sector: ""}
+  - {ats: greenhouse, token: civisanalytics, name: "Civis Analytics", sector: ""}
+  - {ats: ashby, token: cylake-inc, name: "Cylake", sector: ""}
+  - {ats: greenhouse, token: ionq, name: "IonQ", sector: ""}
+  - {ats: lever, token: arsiem, name: "ARSIEM", sector: Aerospace & Defense}
+  - {ats: workday, token: transperfect:wd5:transperfect, name: "TransPerfect", sector: ""}
+  - {ats: lever, token: plus-2, name: "Plus", sector: ""}
+  - {ats: greenhouse, token: trace3, name: "Trace3", sector: ""}
+  - {ats: ashby, token: voxel, name: "Voxel", sector: ""}
+  - {ats: lever, token: aircall, name: "Aircall", sector: ""}
+  - {ats: workday, token: texascapitalbank:wd12:careers, name: "Texas Capital Bank", sector: ""}
+  - {ats: workday, token: blackstone:wd1:blackstone_careers, name: "Blackstone", sector: ""}
+  - {ats: ashby, token: rundoo, name: "Rundoo", sector: ""}
+  - {ats: ashby, token: displai, name: "Displai", sector: ""}
+  - {ats: greenhouse, token: relaypro, name: "Relay", sector: ""}
+  - {ats: lever, token: fantom-corporation, name: "Fantom Corporation", sector: ""}
+  - {ats: workday, token: utaustin:wd1:utstaff, name: "The University of Texas at Austin", sector: ""}
+  - {ats: ashby, token: julius, name: "Julius", sector: ""}
+  - {ats: ashby, token: govwell, name: "GovWell Technologies", sector: ""}
+  - {ats: eightfold, token: "explore.jobs.netflix.net:netflix.com", name: Netflix, sector: Consumer, tier: 1}

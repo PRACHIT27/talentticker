@@ -1,0 +1,151 @@
+# Software engineering, early career. The original scope.
+label: "software engineering · 0–4 years · United States"
+description: >
+  Software engineering roles in the US asking for four years of experience or
+  fewer.
+
+max_years: 4
+
+# What Workday and Eightfold get typed into their search box. Those boards will
+# not hand over everything, so the wrong terms here mean an empty board.
+search_terms:
+  - software engineer
+  - software developer
+
+title_terms:
+  - software engineer
+  - software developer
+  - software development engineer
+  - backend engineer
+  - back end engineer
+  - back-end engineer
+  - frontend engineer
+  - front end engineer
+  - front-end engineer
+  - full stack
+  - fullstack
+  - full-stack
+  - web engineer
+  - web developer
+  - application engineer
+  - applications engineer
+  - mobile engineer
+  - ios engineer
+  - android engineer
+  - ios developer
+  - android developer
+  - mobile developer
+  - platform engineer
+  - infrastructure engineer
+  - systems engineer
+  - site reliability
+  - devops engineer
+  - cloud engineer
+  - network engineer
+  - security engineer
+  - product security
+  - application security
+  - data engineer
+  - analytics engineer
+  - machine learning engineer
+  - ml engineer
+  - ai engineer
+  - mlops
+  - research engineer
+  - embedded engineer
+  - embedded software
+  - firmware engineer
+  - qa engineer
+  - test engineer
+  - engineer in test
+  - automation engineer
+  - developer
+  - programmer
+  - engineer i
+  - engineer ii
+  - computer scientist
+  - compiler engineer
+  - graphics engineer
+  - distributed systems
+  - database engineer
+  - performance engineer
+  - tools engineer
+  - game engineer
+  - blockchain engineer
+  - protocol engineer
+
+# Titles containing "engineer" that are not software jobs.
+exclude_titles:
+  - sales engineer
+  - solutions engineer
+  - solution engineer
+  - customer engineer
+  - support engineer
+  - field engineer
+  - implementation engineer
+  - deployment engineer
+  - forward deployed
+  - mechanical engineer
+  - electrical engineer
+  - civil engineer
+  - chemical engineer
+  - industrial engineer
+  - manufacturing engineer
+  - process engineer
+  - hardware engineer
+  - rf engineer
+  - optical engineer
+  - materials engineer
+  - structural engineer
+  - biomedical engineer
+  - facilities
+  - recruiter
+  - recruiting
+  - sourcer
+  - account executive
+  - account manager
+  - sales
+  - marketing
+  - designer
+  - content
+  - counsel
+  - attorney
+  - paralegal
+  - accountant
+  - controller
+  - people operations
+  - talent
+  - chief of staff
+  - executive assistant
+  - product manager
+  - program manager
+  - project manager
+  - product marketing
+  - technical writer
+  - technical program
+  - customer success
+  - data scientist
+  - data analyst
+  - business analyst
+  - financial analyst
+  - engineering manager
+  - recruiting coordinator
+
+departments:
+  - engineering
+  - technology
+  - technical
+  - r&d
+  - research and development
+  - product development
+  - software
+  - infrastructure
+  - platform
+  - security
+  - data
+  - machine learning
+  - artificial intelligence
+  - it
+
+include_builtin_skills: true
+skill_sets: []

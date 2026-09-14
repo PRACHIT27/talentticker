@@ -1,0 +1,121 @@
+# Product management, early career.
+#
+# Product hiring differs from engineering in ways that matter to the filter.
+# Titles are less standardised ("Product Manager", "Associate Product Manager",
+# "Product Owner", "Technical Product Manager"), and "Manager" in the title is
+# the job rather than a sign of seniority - so the management exclusion that
+# engineering relies on has to be switched off here, which the classifier does
+# by noticing that the profile's own title terms contain "manager".
+#
+# APM and rotational programmes are the genuine new-grad entry point, so they
+# are listed explicitly.
+
+label: "product management · 0–4 years · United States"
+description: >
+  Product management roles in the US asking for four years of experience or
+  fewer, including associate product manager and rotational programmes.
+
+max_years: 4
+
+# Workday and Eightfold only return what we search for, so a thin list here is
+# a hard ceiling on what those 147 boards can ever contribute.
+search_terms:
+  - product manager
+  - associate product manager
+  - product owner
+  - product analyst
+  - technical product manager
+  - product operations
+  - product marketing manager
+  - business analyst
+  - program manager
+
+title_terms:
+  - product manager
+  - product management
+  - associate product manager
+  - apm
+  - product owner
+  - technical product manager
+  - platform product manager
+  - growth product manager
+  - product analyst
+  - product operations
+  - product strategy
+  - rotational product
+  - product management intern   # caught then filtered by the internship rule
+  - product lead
+  - product specialist
+  - business product manager
+  - ai product manager
+  - data product manager
+  - product associate
+  - associate product
+  - product coordinator
+  - business analyst
+  - program manager
+  - technical program manager
+  - product growth
+  - product data analyst
+  - product insights
+  - product strategy analyst
+  - rotational analyst
+  - business operations analyst
+
+# Roles that mention "product" but are a different job.
+exclude_titles:
+  - product marketing
+  - product designer
+  - product design
+  - product engineer
+  - production engineer
+  - product support
+  - product security
+  - software engineer
+  - engineering manager
+  - account executive
+  - account manager
+  - sales
+  - recruiter
+  - recruiting
+  - sourcer
+  - counsel
+  - attorney
+  - paralegal
+  - accountant
+  - controller
+  - customer success
+  - technical writer
+  - warehouse
+  - production associate
+  - product photographer
+
+departments:
+  - product
+  - product management
+  - business
+  - strategy
+  - growth
+  - operations
+  - technology
+  - engineering
+
+# Product people need a different vocabulary from engineers, but not a
+# completely separate one: the technical dictionary still matters, because
+# plenty of these postings ask for SQL, APIs and increasingly LLM literacy.
+include_builtin_skills: true
+skill_sets:
+  - product
+
+# The GitHub new-grad lists are software-engineering lists. A product run
+# fetched 446 rows from them and kept exactly none, so it does not read them.
+# If a product-specific list turns up, add it to companies.yml and drop this.
+exclude_sources:
+  - jobboard
+
+# Amazon's board token is a job category, not a company. Left at the default it
+# asks Amazon for software jobs, which is why a product run found one eligible
+# role in 2,601 postings. These two categories together hold well over a
+# thousand US openings.
+source_tokens:
+  amazon: "Project/Program/Product Management--Technical|Project/Program/Product Management--Non-Tech"

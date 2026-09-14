@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TalentTicker - early-career software job market</title>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>">
+</head>
+<body>
+
+<header>
+  <h1>Talent<span>Ticker</span></h1>
+  <div class="sub">software engineering &middot; 0&ndash;4 years &middot; United States</div>
+  <div class="spacer"></div>
+  <select id="profileSwitch" title="Which role" style="margin-right:14px">
+    <option value="swe">Software engineering</option>
+    <option value="product">Product management</option>
+  </select>
+  <div class="stats" id="stats"></div>
+</header>
+
+<nav>
+  <button data-page="ticker" class="active">Skills ticker</button>
+  <button data-page="movers">Movers</button>
+  <button data-page="emerging">Emerging</button>
+  <button data-page="sectors">Sectors</button>
+  <button data-page="map">Where the jobs are</button>
+  <button data-page="themes">What they're solving</button>
+  <button data-page="jobs">Open roles</button>
+  <button data-page="alerts">Alerts</button>
+</nav>
+
+<main>
+
+  <!-- ============ SKILLS TICKER ============ -->
+  <section class="page active" id="page-ticker">
+    <div class="controls">
+      <label class="sub">Window</label>
+      <select id="tickerWindow">
+        <option value="30" selected>Last 30 days</option>
+        <option value="60">Last 60 days</option>
+        <option value="90">Last 90 days</option>
+        <option value="180">Last 180 days</option>
+      </select>
+      <select id="tickerCategory"><option value="">All categories</option></select>
+      <input type="text" id="tickerSearch" placeholder="Filter skills..." style="min-width:180px">
+    </div>
+    <div class="card table-card"><div id="tickerTable"></div></div>
+    <p class="foot">
+      Share is the percentage of early-career US software postings that mention the skill.
+      Change compares this window against the one before it.
+      Click any column heading to sort, or any row for detail.
+    </p>
+  </section>
+
+  <!-- ============ MOVERS ============ -->
+  <section class="page" id="page-movers">
+    <div class="grid three">
+      <div class="card">
+        <h2>Rising</h2>
+        <p class="hint">Biggest gains in share against the previous period.</p>
+        <div id="gainers"></div>
+      </div>
+      <div class="card">
+        <h2>Falling</h2>
+        <p class="hint">Losing ground fastest.</p>
+        <div id="losers"></div>
+      </div>
+      <div class="card">
+        <h2>Worth watching</h2>
+        <p class="hint">Growing fast from a small base. These are the tie-breakers.</p>
+        <div id="emergingSkills"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EMERGING PHRASES ============ -->
+  <section class="page" id="page-emerging">
+    <div class="note">
+      <b>What this is.</b> The skills ticker can only count things it already knows about.
+      This list works the other way round: it reads every posting, finds named technologies
+      that were barely mentioned a few months ago, and ranks them by how fast they climbed.
+      It is how you spot a skill before it is on anyone's list.
+    </div>
+    <div class="card table-card"><div id="emergingTable"></div></div>
+    <p class="foot">
+      "Companies" matters most. A term used by one employer across many postings is
+      house style; a term showing up at six different companies is a trend.
+    </p>
+  </section>
+
+  <!-- ============ SECTORS ============ -->
+  <section class="page" id="page-sectors">
+    <div class="controls">
+      <label class="sub">Window</label>
+      <select id="sectorWindow">
+        <option value="30">Last 30 days</option>
+        <option value="90" selected>Last 90 days</option>
+        <option value="180">Last 180 days</option>
+      </select>
+    </div>
+    <div class="grid two">
+      <div class="card">
+        <h2>Early-career roles by sector</h2>
+        <p class="hint">Share of all early-career US software postings.</p>
+        <div id="sectorChart"></div>
+      </div>
+      <div class="card">
+        <h2>What each sector pays</h2>
+        <p class="hint">Published ranges, averaged. Bar spans the low to the high figure.</p>
+        <div id="sectorPayChart"></div>
+      </div>
+    </div>
+    <div class="card table-card" style="margin-top:18px"><div id="sectorTable"></div></div>
+    <p class="foot">Click a sector for the skills it wants, who is hiring, and where.</p>
+  </section>
+
+  <!-- ============ MAP ============ -->
+  <section class="page" id="page-map">
+    <div class="note">
+      <b>What this measures.</b> Where early-career software <em>jobs</em> are, not where
+      individual people moved. Company hiring is public and countable; tracking people
+      would mean scraping profiles, which this does not do.
+    </div>
+
+    <div class="card">
+      <h2>Early-career software roles by state</h2>
+      <p class="hint">
+        Shaded by how many early-career software roles each state has. Hover any state
+        for the exact figure. The small north-eastern states are labelled along the
+        right, since they are too narrow to hold text.
+      </p>
+      <div id="usMap"></div>
+    </div>
+
+    <div class="grid two" style="margin-top:18px">
+      <div class="card">
+        <h2>Typical pay by metro</h2>
+        <p class="hint">Each bar spans the average published low to the average high.</p>
+        <div id="payChart"></div>
+      </div>
+      <div class="card">
+        <h2>Remote share over time</h2>
+        <p class="hint">Percentage of early-career roles advertised as remote.</p>
+        <div id="remoteChart"></div>
+      </div>
+    </div>
+
+    <div class="card table-card" style="margin-top:18px"><div id="metroTable"></div></div>
+
+    <div class="grid two" style="margin-top:18px">
+      <div class="card table-card"><div id="growingTable"></div></div>
+      <div class="card table-card"><div id="shrinkingTable"></div></div>
+    </div>
+  </section>
+
+  <!-- ============ THEMES ============ -->
+  <section class="page" id="page-themes">
+    <div class="controls">
+      <button class="btn ghost" id="themeRefresh">Rebuild with Claude</button>
+      <span class="hint" id="themeMeta" style="color:var(--dim)"></span>
+    </div>
+    <div class="card"><div id="themes"><div class="loading">Loading&hellip;</div></div></div>
+  </section>
+
+  <!-- ============ JOBS ============ -->
+  <section class="page" id="page-jobs">
+    <div class="controls">
+      <input type="text" id="jobSkill" placeholder="Skill, e.g. Kubernetes">
+      <input type="text" id="jobMetro" placeholder="Metro, e.g. Boston">
+      <select id="jobSponsor" title="Visa sponsorship">
+        <option value="">Sponsorship: any</option>
+        <option value="open">Not ruled out</option>
+        <option value="yes">Says it sponsors</option>
+        <option value="unknown">Doesn't say</option>
+        <option value="no">Says it will not</option>
+        <option value="clearance">Needs clearance</option>
+      </select>
+      <select id="jobDays">
+        <option value="7">Last 7 days</option>
+        <option value="14" selected>Last 14 days</option>
+        <option value="30">Last 30 days</option>
+        <option value="90">Last 90 days</option>
+      </select>
+      <button class="btn" id="jobSearch">Search</button>
+      <span class="hint" id="jobCount" style="color:var(--dim)"></span>
+    </div>
+    <div class="card table-card"><div id="jobsTable"></div></div>
+    <p class="foot">
+      <b>Sponsorship</b> is read from what the posting itself says. Hover a badge for the
+      exact sentence. "Doesn't say" is the most common answer and does not mean no &mdash;
+      most employers simply never mention it. "Not ruled out" keeps everything except
+      the postings that explicitly close the door.
+    </p>
+  </section>
+
+  <!-- ============ ALERTS ============ -->
+  <section class="page" id="page-alerts">
+    <div id="alertConfig"></div>
+    <div class="grid two">
+      <div class="card">
+        <h2>Watchlists</h2>
+        <p class="hint">
+          New jobs are checked every 5 minutes. Anything matching a watchlist is emailed
+          straight away. Leave a field blank to mean "anything".
+        </p>
+        <div id="watchlists"></div>
+        <hr style="border:0;border-top:1px solid var(--line);margin:18px 0">
+        <h2 style="margin-bottom:10px">Add a watchlist</h2>
+        <div class="grid" style="gap:8px">
+          <input type="text" id="wlName" placeholder="Name, e.g. backend-boston">
+          <input type="text" id="wlSkills" placeholder="Skills, any one matches: Go, Kubernetes">
+          <input type="text" id="wlStates" placeholder="States: MA, NY  (blank = anywhere)">
+          <input type="text" id="wlQuery" placeholder="Words in the title or text: backend, platform">
+          <div style="display:flex;gap:10px;align-items:center">
+            <label class="sub">Max years</label>
+            <input type="number" id="wlYears" value="4" min="0" max="10" step="1" style="width:80px">
+            <label class="sub"><input type="checkbox" id="wlRemote" checked> include remote</label>
+          </div>
+          <button class="btn" id="wlSave">Save watchlist</button>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Recently sent</h2>
+        <p class="hint">The last alerts that went out.</p>
+        <div id="sentAlerts"></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="tooltip" id="tooltip"></div>
+<div class="backdrop" id="backdrop"></div>
+<aside class="drawer" id="drawer">
+  <button class="close" id="drawerClose">&times;</button>
+  <div id="drawerBody"></div>
+</aside>
+
+<script>
+  window.TT_STATIC = true;
+  window.TT_PROFILE = new URLSearchParams(location.search).get('p') || 'swe';
+</script>
+<script src="app.js"></script>
+<script>
+  const sw = document.querySelector('#profileSwitch');
+  sw.value = window.TT_PROFILE;
+  sw.addEventListener('change', () => {
+    location.search = '?p=' + sw.value;
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+name: refresh
+
+on:
+  schedule:
+    - cron: "20 8 * * *"
+    - cron: "0 */3 * * *"
+  workflow_dispatch:
+    inputs:
+      full:
+        description: "Full pull of every board"
+        type: boolean
+        default: false
+
+concurrency:
+  group: talentticker
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    env:
+      TT_ALERT_TO: ${{ secrets.TT_ALERT_TO }}
+      TT_SMTP_HOST: ${{ secrets.TT_SMTP_HOST }}
+      TT_SMTP_PORT: ${{ secrets.TT_SMTP_PORT }}
+      TT_SMTP_USER: ${{ secrets.TT_SMTP_USER }}
+      TT_SMTP_PASS: ${{ secrets.TT_SMTP_PASS }}
+      TT_SMTP_FROM: ${{ secrets.TT_SMTP_FROM }}
+      TT_CLAUDE_ENABLED: "0"
+      TT_SCHEDULER: "0"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Restore databases
+        uses: actions/cache/restore@v4
+        with:
+          path: var
+          key: tt-db-${{ github.run_id }}
+          restore-keys: tt-db-
+
+      - name: Decide whether this run is a full pull
+        id: mode
+        run: |
+          if [ "${{ github.event.schedule }}" = "20 8 * * *" ] || [ "${{ inputs.full }}" = "true" ]; then
+            echo "full=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "full=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Full pull
+        if: steps.mode.outputs.full == 'true'
+        run: |
+          python -m tt setup
+          python -m tt refresh
+          python -m tt snapshot
+          python -m tt vacuum
+          TT_PROFILE=product python -m tt setup
+          TT_PROFILE=product python -m tt refresh
+          TT_PROFILE=product python -m tt snapshot
+          TT_PROFILE=product python -m tt vacuum
+
+      - name: Sweep every board
+        if: steps.mode.outputs.full != 'true'
+        run: |
+          python -m tt setup
+          python -m tt poll
+          TT_PROFILE=product python -m tt setup
+          TT_PROFILE=product python -m tt poll
+
+      - name: Build the site
+        run: |
+          python -m tt export
+          TT_PROFILE=product python -m tt export
+          cp tt/web/static/app.js tt/web/static/style.css tt/web/static/us-states.json site/
+
+      - name: Save databases
+        uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: var
+          key: tt-db-${{ github.run_id }}
+
+      - name: Publish the site
+        run: |
+          git config user.name "talentticker"
+          git config user.email "talentticker@users.noreply.github.com"
+          git checkout --orphan site-build
+          git rm -rf --cached . >/dev/null
+          git add -f site vercel.json
+          git commit -m "site $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push --force origin site-build
