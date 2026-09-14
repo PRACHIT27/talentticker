@@ -91,16 +91,22 @@ jobs:
           path: var
           key: tt-db-${{ github.run_id }}
 
-      - name: Publish the site
+      - name: Deploy to Vercel
+        if: env.VERCEL_TOKEN != ''
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: team_Wf7rP1qNEgd9Hvc5Xt2Cs9h9
+          VERCEL_PROJECT_ID: prj_HL77BC1L692WIxHenUr4U6G3QBjR
         run: |
-          rm -rf /tmp/pub && mkdir -p /tmp/pub
-          cp -r site /tmp/pub/site
-          cp vercel.json /tmp/pub/vercel.json
-          cd /tmp/pub
-          git init -q -b site-build
-          git config user.name "talentticker"
-          git config user.email "talentticker@users.noreply.github.com"
-          git remote add origin "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
-          git add -f site vercel.json
-          git commit -q -m "site $(date -u +%Y-%m-%dT%H:%MZ)"
-          git push --force origin site-build
+          npm install -g vercel@59 --silent
+          cp vercel.json site/vercel.json
+          python - <<'PY'
+          import json, pathlib
+          p = pathlib.Path("site/vercel.json")
+          cfg = json.loads(p.read_text(encoding="utf-8"))
+          cfg.pop("outputDirectory", None)
+          cfg.pop("$schema", None)
+          p.write_text(json.dumps(cfg, indent=2), encoding="utf-8")
+          PY
+          cd site
+          vercel deploy --prod --yes --token "$VERCEL_TOKEN"
