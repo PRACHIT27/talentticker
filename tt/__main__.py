@@ -17,7 +17,7 @@ import pathlib
 import logging
 import sys
 
-from . import alerts, db, discover, export, ingest
+from . import alerts, db, discover, export, ingest, state
 from .analytics import (
     emerging, geo, industry, skill_discovery, skill_proposals, themes, ticker,
 )
@@ -449,6 +449,23 @@ def cmd_learn_skills(args) -> int:
     return 0
 
 
+def cmd_state(args) -> int:
+    path = pathlib.Path(args.path) if args.path else None
+    if args.action == "save":
+        db.init()
+        result = state.save(path)
+        print(f"saved {result['seen']:,} seen ids and {result['alerted']:,} "
+              f"alert records to {result['path']} ({result['size_kb']} KB)")
+    else:
+        result = state.load(path)
+        if result["missing"]:
+            print("no state file - treating every posting as new")
+        else:
+            print(f"loaded {result['seen']:,} seen ids, "
+                  f"{result['alerted']:,} alert records")
+    return 0
+
+
 def cmd_vacuum(args) -> int:
     db.init()
     result = ingest.vacuum()
@@ -546,6 +563,11 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--dry-run", action="store_true",
                    help="show the cost of an --ai run without making it")
     p.set_defaults(func=cmd_learn_skills)
+
+    p = subparsers.add_parser("state", help="save or load the seen-job state")
+    p.add_argument("action", choices=["save", "load"])
+    p.add_argument("--path", default="")
+    p.set_defaults(func=cmd_state)
 
     subparsers.add_parser(
         "vacuum", help="drop description text from rejected and closed postings"

@@ -6,13 +6,16 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: talentticker
+  group: talentticker-poll
   cancel-in-progress: false
+
+permissions:
+  contents: write
 
 jobs:
   poll:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 15
     env:
       TT_ALERT_TO: ${{ secrets.TT_ALERT_TO }}
       TT_SMTP_HOST: ${{ secrets.TT_SMTP_HOST }}
@@ -22,6 +25,7 @@ jobs:
       TT_SMTP_FROM: ${{ secrets.TT_SMTP_FROM }}
       TT_CLAUDE_ENABLED: "0"
       TT_SCHEDULER: "0"
+      TT_FETCH_CACHE_MINUTES: "0"
 
     steps:
       - uses: actions/checkout@v4
@@ -33,23 +37,34 @@ jobs:
 
       - run: pip install -r requirements.txt
 
-      - name: Restore databases
-        uses: actions/cache/restore@v4
-        with:
-          path: var
-          key: tt-db-${{ github.run_id }}
-          restore-keys: tt-db-
+      - name: Fetch the seen-job state
+        run: |
+          mkdir -p var
+          git fetch origin state:state 2>/dev/null || echo "no state branch yet"
+          git show state:state.json.gz > var/state.json.gz 2>/dev/null || echo "no engineering state yet"
+          git show state:state-product.json.gz > var/state-product.json.gz 2>/dev/null || echo "no product state yet"
 
       - name: Check priority boards and email matches
         run: |
           python -m tt setup
+          python -m tt state load
           python -m tt poll --tier 1
-          TT_PROFILE=product python -m tt setup
-          TT_PROFILE=product python -m tt poll --tier 1
+          python -m tt state save
 
-      - name: Save databases
-        uses: actions/cache/save@v4
-        if: always()
-        with:
-          path: var
-          key: tt-db-${{ github.run_id }}
+          TT_PROFILE=product python -m tt setup
+          TT_PROFILE=product python -m tt state load --path var/state-product.json.gz
+          TT_PROFILE=product python -m tt poll --tier 1
+          TT_PROFILE=product python -m tt state save --path var/state-product.json.gz
+
+      - name: Publish the state
+        run: |
+          rm -rf /tmp/pub && mkdir -p /tmp/pub
+          cp var/state.json.gz var/state-product.json.gz /tmp/pub/
+          cd /tmp/pub
+          git init -q -b state
+          git config user.name "talentticker"
+          git config user.email "talentticker@users.noreply.github.com"
+          git remote add origin "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
+          git add .
+          git commit -q -m "state $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push --force origin state

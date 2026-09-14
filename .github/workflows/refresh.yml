@@ -85,18 +85,31 @@ jobs:
           cp tt/web/static/app.js tt/web/static/style.css tt/web/static/us-states.json site/
 
       - name: Save databases
+        if: steps.mode.outputs.full == 'true'
         uses: actions/cache/save@v4
-        if: always()
         with:
           path: var
           key: tt-db-${{ github.run_id }}
 
       - name: Publish the site
         run: |
+          rm -rf /tmp/site && mkdir -p /tmp/site
+          cp -r site/. /tmp/site/
+          cat > /tmp/site/vercel.json <<'JSON'
+          {
+            "cleanUrls": true,
+            "headers": [
+              { "source": "/data/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=300, must-revalidate" }] },
+              { "source": "/(app.js|style.css|us-states.json)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600" }] }
+            ]
+          }
+          JSON
+          sed -i 's/^          //' /tmp/site/vercel.json
+          cd /tmp/site
+          git init -q -b site-build
           git config user.name "talentticker"
           git config user.email "talentticker@users.noreply.github.com"
-          git checkout --orphan site-build
-          git rm -rf --cached . >/dev/null
-          git add -f site vercel.json
-          git commit -m "site $(date -u +%Y-%m-%dT%H:%MZ)"
+          git remote add origin "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
+          git add -f .
+          git commit -q -m "site $(date -u +%Y-%m-%dT%H:%MZ)"
           git push --force origin site-build
