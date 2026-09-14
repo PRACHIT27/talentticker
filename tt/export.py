@@ -5,7 +5,7 @@ from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 from . import config, db
-from .analytics import emerging, geo, industry, themes, ticker
+from .analytics import building, emerging, geo, industry, themes, ticker
 from .extract.taxonomy import CATEGORY_LABELS, category_of
 
 WINDOWS = (30, 60, 90, 180)
@@ -120,6 +120,12 @@ def build(conn) -> dict:
         "geo": _geo(conn),
         "jobs": _jobs(conn),
         "themes": themes.get_cached(conn, "market", "") or {},
+        "building": {
+            "summary": building.summary(conn),
+            "board": building.board(conn),
+            "languages": building.languages(conn),
+            "repos": building.top_repos(conn, limit=60),
+        },
     }
 
 

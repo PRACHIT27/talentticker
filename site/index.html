@@ -13,7 +13,7 @@
   <h1>Talent<span>Ticker</span></h1>
   <div class="sub">software engineering &middot; 0&ndash;4 years &middot; United States</div>
   <div class="spacer"></div>
-  <select id="profileSwitch" title="Which role" style="margin-right:14px">
+  <select id="profileSwitch" style="margin-right:14px">
     <option value="swe">Software engineering</option>
     <option value="product">Product management</option>
   </select>
@@ -25,6 +25,7 @@
   <button data-page="movers">Movers</button>
   <button data-page="emerging">Emerging</button>
   <button data-page="sectors">Sectors</button>
+  <button data-page="building">Being built</button>
   <button data-page="map">Where the jobs are</button>
   <button data-page="themes">What they're solving</button>
   <button data-page="jobs">Open roles</button>
@@ -114,6 +115,43 @@
     </div>
     <div class="card table-card" style="margin-top:18px"><div id="sectorTable"></div></div>
     <p class="foot">Click a sector for the skills it wants, who is hiring, and where.</p>
+  </section>
+
+  <section class="page" id="page-building">
+    <div class="note">
+      <b>What this is.</b> Public GitHub repositories created recently that gained
+      real traction, compared against what companies are hiring for. A skill that
+      is common in new projects but rare in job postings is a signal you are early
+      on it &mdash; that gap is the whole point of this page.
+    </div>
+    <div class="controls">
+      <label class="sub">Created in the last</label>
+      <select id="buildingMonths">
+        <option value="3">3 months</option>
+        <option value="6" selected>6 months</option>
+        <option value="12">12 months</option>
+      </select>
+      <span class="hint" id="buildingMeta" style="color:var(--dim)"></span>
+    </div>
+    <div class="grid two">
+      <div class="card">
+        <h2>Built more than hired for</h2>
+        <p class="hint">Ahead of the job market. Worth learning now.</p>
+        <div id="buildingAhead"></div>
+      </div>
+      <div class="card">
+        <h2>What they are written in</h2>
+        <p class="hint">Language of the trending repositories.</p>
+        <div id="buildingLangs"></div>
+      </div>
+    </div>
+    <div class="card table-card" style="margin-top:18px"><div id="buildingTable"></div></div>
+    <div class="card table-card" style="margin-top:18px"><div id="buildingRepos"></div></div>
+    <p class="foot">
+      Read the negative gaps with care. A repository description is one sentence,
+      so it rarely mentions Linux, Git or SQL even when the project uses them.
+      The positive side of the table is the meaningful one.
+    </p>
   </section>
 
   <!-- ============ MAP ============ -->
@@ -246,9 +284,7 @@
 <script>
   const sw = document.querySelector('#profileSwitch');
   sw.value = window.TT_PROFILE;
-  sw.addEventListener('change', () => {
-    location.search = '?p=' + sw.value;
-  });
+  sw.addEventListener('change', () => { location.search = '?p=' + sw.value; });
 </script>
 </body>
 </html>

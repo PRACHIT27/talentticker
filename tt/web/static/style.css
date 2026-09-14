@@ -358,3 +358,14 @@ th .arrow { margin-left: 4px; font-size: 10px; }
 .spon-unknown { background: var(--panel-2); color: var(--dim); }
 .pill.hot { cursor: help; }
 .pill.hot-pill { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
+
+.table-foot {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 13px;
+}
+.table-foot .btn { padding: 5px 11px; font-size: 12.5px; }

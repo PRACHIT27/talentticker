@@ -19,7 +19,8 @@ import sys
 
 from . import alerts, db, discover, export, ingest, state
 from .analytics import (
-    emerging, geo, industry, skill_discovery, skill_proposals, themes, ticker,
+    building, emerging, geo, industry, skill_discovery, skill_proposals,
+    themes, ticker,
 )
 
 
@@ -462,6 +463,39 @@ def cmd_learn_skills(args) -> int:
     return 0
 
 
+def cmd_building(args) -> int:
+    db.init()
+    with db.session() as conn:
+        if args.refresh:
+            result = building.refresh(conn, months=args.months, pages=args.pages)
+            print(f"stored {result['repos']} repos")
+        rows = building.board(conn, months=args.months)
+        langs = building.languages(conn, months=args.months)
+        top = building.top_repos(conn, months=args.months, limit=10)
+        info = building.summary(conn, months=args.months)
+
+    if not rows:
+        print("no repo data yet - run with --refresh")
+        return 0
+
+    print(f"\n{info['repos']} repos created in the last {args.months} months, "
+          f"{info['stars']:,} stars between them\n")
+    print(f"{'SKILL':26}{'REPOS':>7}{'REPO %':>9}{'JOB %':>8}{'GAP':>8}")
+    print("-" * 58)
+    for row in rows[: args.limit]:
+        print(f"{row['skill']:26}{row['repos']:>7}{row['repo_share']:>8.1f}%"
+              f"{row['job_share']:>7.1f}%{row['gap']:>+7.1f}")
+
+    print("\nBUILT IN")
+    for lang in langs[:8]:
+        print(f"  {lang['language']:16}{lang['repos']:>4} repos  {lang['share']:>5.1f}%")
+
+    print("\nMOST STARRED")
+    for repo in top[:6]:
+        print(f"  {repo['stars']:>8,}  {repo['full_name'][:40]:42}{(repo['description'] or '')[:40]}")
+    return 0
+
+
 def cmd_state(args) -> int:
     path = pathlib.Path(args.path) if args.path else None
     if args.action == "save":
@@ -578,6 +612,13 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--dry-run", action="store_true",
                    help="show the cost of an --ai run without making it")
     p.set_defaults(func=cmd_learn_skills)
+
+    p = subparsers.add_parser("building", help="what people are building on GitHub")
+    p.add_argument("--refresh", action="store_true", help="fetch from GitHub first")
+    p.add_argument("--months", type=int, default=6)
+    p.add_argument("--pages", type=int, default=6)
+    p.add_argument("--limit", type=int, default=18)
+    p.set_defaults(func=cmd_building)
 
     p = subparsers.add_parser("state", help="save or load the seen-job state")
     p.add_argument("action", choices=["save", "load"])

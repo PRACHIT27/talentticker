@@ -61,6 +61,9 @@ async function staticApi(path) {
       return pick(b.geo);
     case "/api/companies":
       return pick(b.geo).companies || { growing: [], shrinking: [], boards: [] };
+    case "/api/building":
+      if (!b.building) throw new Error("no repo data in this export");
+      return b.building;
     case "/api/themes":
       if (!b.themes || !b.themes.themes) throw new Error("no write-up in this export");
       return b.themes;
@@ -75,7 +78,7 @@ async function staticApi(path) {
       if (metro) rows = rows.filter((j) => j.metro === metro);
       if (spon === "open") rows = rows.filter((j) => !["no", "clearance"].includes(j.sponsorship));
       else if (spon) rows = rows.filter((j) => (j.sponsorship || "unknown") === spon);
-      return { rows: rows.slice(0, Number(q.get("limit") || 200)) };
+      return { rows: rows.slice(0, Number(q.get("limit") || 5000)) };
     }
     case "/api/alert-config":
       return {
@@ -186,6 +189,8 @@ function hideTip() {
    columns start descending, because "most" is the interesting end. */
 
 const sortState = {};
+const pageState = {};
+const PAGE_SIZE = 100;
 
 function dataTable(containerSel, columns, rows, options = {}) {
   const container = $(containerSel);
@@ -206,6 +211,9 @@ function dataTable(containerSel, columns, rows, options = {}) {
 
   const column = columns.find((c) => c.key === sort.key) || columns[0];
   const valueOf = (row) => (column.sortValue ? column.sortValue(row) : row[column.key]);
+  if (pageState[key] === undefined) pageState[key] = options.pageSize || PAGE_SIZE;
+  const limit = pageState[key];
+
   const sorted = rows.slice().sort((a, b) => {
     const x = valueOf(a);
     const y = valueOf(b);
@@ -213,7 +221,7 @@ function dataTable(containerSel, columns, rows, options = {}) {
     if (y === null || y === undefined) return -1;
     if (typeof x === "number" && typeof y === "number") return (x - y) * sort.dir;
     return String(x).localeCompare(String(y)) * sort.dir;
-  });
+  }).slice(0, limit);
 
   // Bar columns are scaled against the largest value in the table.
   const maxima = {};
@@ -249,7 +257,29 @@ function dataTable(containerSel, columns, rows, options = {}) {
     })
     .join("");
 
-  container.innerHTML = `<table><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>`;
+  const shown = sorted.length;
+  const footer =
+    rows.length > shown
+      ? `<div class="table-foot">
+           Showing <b>${shown.toLocaleString()}</b> of ${rows.length.toLocaleString()}
+           <button class="btn ghost" data-more="1">Show 100 more</button>
+           <button class="btn ghost" data-more="all">Show all</button>
+         </div>`
+      : rows.length > PAGE_SIZE
+        ? `<div class="table-foot">Showing all ${rows.length.toLocaleString()}</div>`
+        : "";
+
+  container.innerHTML =
+    `<table><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>${footer}`;
+
+  container.querySelectorAll("[data-more]").forEach((btn) =>
+    btn.addEventListener("click", () => {
+      pageState[key] = btn.dataset.more === "all"
+        ? Number.MAX_SAFE_INTEGER
+        : (pageState[key] || PAGE_SIZE) + 100;
+      dataTable(containerSel, columns, rows, options);
+    })
+  );
 
   container.querySelectorAll("th[data-sort]").forEach((th) =>
     th.addEventListener("click", () => {
@@ -260,6 +290,7 @@ function dataTable(containerSel, columns, rows, options = {}) {
         sort.key = clicked;
         sort.dir = col && col.num ? -1 : 1;
       }
+      pageState[key] = options.pageSize || PAGE_SIZE;
       dataTable(containerSel, columns, rows, options);
     })
   );
@@ -827,6 +858,59 @@ async function openSector(name) {
   wireTips("#drawerBody");
 }
 
+loaders.building = async function () {
+  const months = $("#buildingMonths").value;
+  $("#buildingTable").innerHTML = '<div class="loading">Loading&hellip;</div>';
+  const d = await api(`/api/building?months=${months}`);
+
+  $("#buildingMeta").textContent = d.summary.repos
+    ? `${d.summary.repos.toLocaleString()} repos, ${d.summary.stars.toLocaleString()} stars`
+    : "no repo data yet";
+
+  const ahead = d.board.filter((r) => r.gap > 0).slice(0, 12);
+  $("#buildingAhead").innerHTML = barList(
+    ahead, "skill", "gap",
+    (r) => `${r.repo_share}% built vs ${r.job_share}% hired`
+  );
+  $("#buildingLangs").innerHTML = barList(
+    d.languages, "language", "repos", (r) => `${r.repos} (${r.share}%)`
+  );
+
+  dataTable(
+    "#buildingTable",
+    [
+      { key: "skill", label: "Skill", fmt: (r) => `<b>${esc(r.skill)}</b>` },
+      { key: "category_label", label: "Category", fmt: (r) => `<span class="flat">${esc(r.category_label)}</span>` },
+      { key: "repos", label: "Repos", num: true, bar: true },
+      { key: "repo_share", label: "Built %", num: true, fmt: (r) => r.repo_share + "%" },
+      { key: "job_share", label: "Hired %", num: true, fmt: (r) => `<span class="flat">${r.job_share}%</span>` },
+      {
+        key: "gap", label: "Gap", num: true,
+        fmt: (r) => `<span class="${r.gap > 0 ? "up" : r.gap < 0 ? "down" : "flat"}">${r.gap >= 0 ? "+" : ""}${r.gap}</span>`,
+      },
+    ],
+    d.board,
+    { id: "building", sortKey: "gap", empty: "Run `tt building --refresh` first." }
+  );
+
+  dataTable(
+    "#buildingRepos",
+    [
+      {
+        key: "full_name", label: "Repository",
+        fmt: (r) => `<a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.full_name)}</a>`,
+      },
+      { key: "description", label: "What it is", fmt: (r) => `<span class="flat">${esc((r.description || "").slice(0, 90))}</span>` },
+      { key: "language", label: "Language", fmt: (r) => `<span class="flat">${esc(r.language || "–")}</span>` },
+      { key: "stars", label: "Stars", num: true, fmt: (r) => r.stars.toLocaleString() },
+      { key: "created_at", label: "Created", num: true, fmt: (r) => `<span class="flat">${ago(r.created_at)}</span>` },
+    ],
+    d.repos,
+    { id: "buildingRepos", sortKey: "stars", pageSize: 20 }
+  );
+};
+$("#buildingMonths").addEventListener("change", () => loaders.building().catch(console.error));
+
 /* ---------------- geography ---------------- */
 
 loaders.map = async function () {
@@ -953,7 +1037,7 @@ $("#themeRefresh").addEventListener("click", () => loadThemes(true));
 /* ---------------- jobs ---------------- */
 
 loaders.jobs = async function () {
-  const params = new URLSearchParams({ days: $("#jobDays").value, limit: "200" });
+  const params = new URLSearchParams({ days: $("#jobDays").value, limit: "5000" });
   if ($("#jobSkill").value.trim()) params.set("skill", $("#jobSkill").value.trim());
   if ($("#jobMetro").value.trim()) params.set("metro", $("#jobMetro").value.trim());
   if ($("#jobSponsor").value) params.set("sponsorship", $("#jobSponsor").value);

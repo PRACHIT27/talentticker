@@ -118,6 +118,26 @@ CREATE TABLE IF NOT EXISTS snapshots (
 );
 CREATE INDEX IF NOT EXISTS idx_snap ON snapshots(kind, name, day);
 
+CREATE TABLE IF NOT EXISTS repos (
+    full_name   TEXT PRIMARY KEY,
+    description TEXT,
+    language    TEXT,
+    topics      TEXT,
+    stars       INTEGER,
+    created_at  TEXT,
+    pushed_at   TEXT,
+    url         TEXT,
+    fetched_at  TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_repos_created ON repos(created_at);
+
+CREATE TABLE IF NOT EXISTS repo_skills (
+    full_name TEXT NOT NULL,
+    skill     TEXT NOT NULL,
+    PRIMARY KEY (full_name, skill)
+);
+CREATE INDEX IF NOT EXISTS idx_repo_skills ON repo_skills(skill);
+
 CREATE TABLE IF NOT EXISTS meta (
     key TEXT PRIMARY KEY,
     value TEXT

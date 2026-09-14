@@ -10,7 +10,7 @@ from fastapi.staticfiles import StaticFiles
 
 from .. import config, db, ingest, scheduler
 from ..alerts import watchlist as wl
-from ..analytics import emerging, geo, industry, themes, ticker
+from ..analytics import building, emerging, geo, industry, themes, ticker
 
 log = logging.getLogger("tt.web")
 
@@ -282,6 +282,17 @@ def api_sponsorship(window: int = Query(90, ge=7, le=365)) -> dict:
             (since,),
         ).fetchall()
     return {"totals": totals, "companies": [dict(r) for r in companies]}
+
+
+@app.get("/api/building")
+def api_building(months: int = Query(6, ge=1, le=24)) -> dict:
+    with db.session() as conn:
+        return {
+            "summary": building.summary(conn, months=months),
+            "board": building.board(conn, months=months),
+            "languages": building.languages(conn, months=months),
+            "repos": building.top_repos(conn, months=months, limit=60),
+        }
 
 
 @app.get("/api/sectors")
