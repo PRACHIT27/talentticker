@@ -2,8 +2,8 @@ name: refresh
 
 on:
   schedule:
-    - cron: "20 8 * * *"
-    - cron: "0 */3 * * *"
+    - cron: "37 8 * * *"
+    - cron: "17 1,4,7,10,13,16,19,22 * * *"
   workflow_dispatch:
     inputs:
       full:
@@ -52,7 +52,7 @@ jobs:
       - name: Decide whether this run is a full pull
         id: mode
         run: |
-          if [ "${{ github.event.schedule }}" = "20 8 * * *" ] || [ "${{ inputs.full }}" = "true" ]; then
+          if [ "${{ github.event.schedule }}" = "37 8 * * *" ] || [ "${{ inputs.full }}" = "true" ]; then
             echo "full=true" >> "$GITHUB_OUTPUT"
           else
             echo "full=false" >> "$GITHUB_OUTPUT"
