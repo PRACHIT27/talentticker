@@ -55,10 +55,23 @@ def cmd_refresh(args) -> int:
     return 0
 
 
+COLD_START_ROWS = 500
+
+
 def cmd_poll(args) -> int:
     db.init()
+    with db.session() as conn:
+        known = conn.execute("SELECT COUNT(*) n FROM postings").fetchone()["n"]
+
+    cold = known < COLD_START_ROWS
     new_ids = ingest.poll(tier=args.tier)
-    print(f"{len(new_ids)} new posting(s)")
+    print(f"{len(new_ids)} new posting(s), {known:,} already known")
+
+    if cold and not args.force_alerts:
+        print(f"cold start: only {known:,} postings known, so nothing is emailed.")
+        print("Everything seen now is recorded as known; alerts begin next run.")
+        return 0
+
     if new_ids:
         result = alerts.dispatch(new_ids)
         print(json.dumps(result, indent=2))
@@ -508,6 +521,8 @@ def main(argv: list[str] | None = None) -> int:
 
     p = subparsers.add_parser("poll", help="check for new jobs, send alerts")
     p.add_argument("--tier", type=int, default=2)
+    p.add_argument("--force-alerts", action="store_true",
+                   help="email even on a cold start")
     p.set_defaults(func=cmd_poll)
 
     subparsers.add_parser("snapshot").set_defaults(func=cmd_snapshot)

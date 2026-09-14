@@ -33,10 +33,13 @@ def save(path: Path | None = None) -> dict:
 
 def load(path: Path | None = None) -> dict:
     source = path or DEFAULT
-    if not source.exists():
+    if not source.exists() or source.stat().st_size == 0:
         return {"seen": 0, "alerted": 0, "missing": True}
-    with gzip.open(source, "rt", encoding="utf-8") as fh:
-        payload = json.load(fh)
+    try:
+        with gzip.open(source, "rt", encoding="utf-8") as fh:
+            payload = json.load(fh)
+    except (OSError, EOFError, json.JSONDecodeError):
+        return {"seen": 0, "alerted": 0, "missing": True}
 
     db.init()
     with db.session() as conn:

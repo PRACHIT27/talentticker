@@ -41,8 +41,10 @@ jobs:
         run: |
           mkdir -p var
           git fetch origin state:state 2>/dev/null || echo "no state branch yet"
-          git show state:state.json.gz > var/state.json.gz 2>/dev/null || echo "no engineering state yet"
-          git show state:state-product.json.gz > var/state-product.json.gz 2>/dev/null || echo "no product state yet"
+          git show state:state.json.gz > var/state.json.gz 2>/dev/null || true
+          git show state:state-product.json.gz > var/state-product.json.gz 2>/dev/null || true
+          find var -name 'state*.json.gz' -size 0 -delete
+          ls -la var/ || true
 
       - name: Check priority boards and email matches
         run: |
