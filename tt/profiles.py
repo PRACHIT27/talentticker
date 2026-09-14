@@ -62,6 +62,7 @@ class Profile:
     # Who gets the alerts for this profile. Falls back to TT_ALERT_TO.
     # Needed as soon as two people share one installation.
     alert_to: str = ""
+    watchlists: list = field(default_factory=list)
 
     @property
     def db_name(self) -> str:
@@ -99,6 +100,7 @@ def load(name: str | None = None) -> Profile:
         exclude_sources=[a.lower() for a in data.get("exclude_sources") or []],
         source_tokens=dict(data.get("source_tokens") or {}),
         alert_to=(data.get("alert_to") or "").strip(),
+        watchlists=list(data.get("watchlists") or []),
     )
 
 

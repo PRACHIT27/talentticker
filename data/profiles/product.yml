@@ -119,3 +119,12 @@ exclude_sources:
 # thousand US openings.
 source_tokens:
   amazon: "Project/Program/Product Management--Technical|Project/Program/Product Management--Non-Tech"
+
+watchlists:
+  - name: new-grad-pm
+    query: "associate product manager,apm,new grad,entry level,early career,rotational"
+    max_years: 2
+    sponsorship: open
+  - name: sponsors-explicitly
+    max_years: 4
+    sponsorship: "yes"

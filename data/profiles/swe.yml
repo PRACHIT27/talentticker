@@ -149,3 +149,12 @@ departments:
 
 include_builtin_skills: true
 skill_sets: []
+
+watchlists:
+  - name: new-grad
+    query: "new grad,new graduate,entry level,university grad,early career,junior"
+    max_years: 1
+    sponsorship: open
+  - name: sponsors-explicitly
+    max_years: 4
+    sponsorship: "yes"

@@ -51,6 +51,23 @@ def load(conn) -> list[Watchlist]:
 
 
 def ensure_defaults(conn) -> None:
+    from .. import config
+
+    configured = config.PROFILE.watchlists
+    if configured:
+        for entry in configured:
+            save(conn, Watchlist(
+                name=entry["name"],
+                query=entry.get("query", ""),
+                skills=entry.get("skills", ""),
+                states=entry.get("states", ""),
+                remote_ok=int(entry.get("remote_ok", 1)),
+                max_years=float(entry.get("max_years", 4)),
+                sponsorship=entry.get("sponsorship", ""),
+                active=int(entry.get("active", 1)),
+            ))
+        return
+
     existing = conn.execute("SELECT COUNT(*) n FROM watchlists").fetchone()["n"]
     if existing:
         return
