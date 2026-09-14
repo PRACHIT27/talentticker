@@ -369,3 +369,14 @@ th .arrow { margin-left: 4px; font-size: 10px; }
   font-size: 13px;
 }
 .table-foot .btn { padding: 5px 11px; font-size: 12.5px; }
+
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 13px;
+  cursor: pointer;
+  user-select: none;
+}
+.check input { accent-color: var(--accent); width: 15px; height: 15px; cursor: pointer; }

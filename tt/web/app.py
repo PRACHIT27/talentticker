@@ -203,6 +203,7 @@ def api_jobs(
     company: str = "",
     sector: str = "",
     sponsorship: str = "",
+    remote: int = 0,
     days: int = Query(14, ge=1, le=365),
     limit: int = Query(100, ge=1, le=500),
 ) -> dict:
@@ -223,11 +224,13 @@ def api_jobs(
         where.append("s.skill = ?")
         args.append(skill)
     if metro:
-        where.append("p.metro = ?")
-        args.append(metro)
+        where.append("lower(p.metro) LIKE ?")
+        args.append(f"%{metro.lower()}%")
     if company:
-        where.append("p.company_name = ?")
-        args.append(company)
+        where.append("lower(p.company_name) LIKE ?")
+        args.append(f"%{company.lower()}%")
+    if remote:
+        where.append("p.remote = 1")
     if sector:
         where.append("p.sector = ?")
         args.append(sector)

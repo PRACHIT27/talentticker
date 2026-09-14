@@ -207,6 +207,7 @@
     <div class="controls">
       <input type="text" id="jobSkill" placeholder="Skill, e.g. Kubernetes">
       <input type="text" id="jobMetro" placeholder="Metro, e.g. Boston">
+      <input type="text" id="jobCompany" placeholder="Company, e.g. Amazon">
       <select id="jobSponsor" title="Visa sponsorship">
         <option value="">Sponsorship: any</option>
         <option value="open">Not ruled out</option>
@@ -221,7 +222,9 @@
         <option value="30">Last 30 days</option>
         <option value="90">Last 90 days</option>
       </select>
+      <label class="check"><input type="checkbox" id="jobRemote"> Remote only</label>
       <button class="btn" id="jobSearch">Search</button>
+      <button class="btn ghost" id="jobClear">Clear</button>
       <span class="hint" id="jobCount" style="color:var(--dim)"></span>
     </div>
     <div class="card table-card"><div id="jobsTable"></div></div>

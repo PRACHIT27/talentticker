@@ -72,10 +72,14 @@ async function staticApi(path) {
       const cutoff = new Date(Date.now() - days * 86400000).toISOString().slice(0, 10);
       const skill = q.get("skill");
       const metro = q.get("metro");
+      const company = (q.get("company") || "").toLowerCase();
+      const remote = q.get("remote") === "1";
       const spon = q.get("sponsorship");
       let rows = b.jobs.filter((j) => (j.first_published || "") >= cutoff);
-      if (skill) rows = rows.filter((j) => (j.skills || []).includes(skill));
-      if (metro) rows = rows.filter((j) => j.metro === metro);
+      if (skill) rows = rows.filter((j) => (j.skills || []).some((s) => s.toLowerCase() === skill.toLowerCase()));
+      if (metro) rows = rows.filter((j) => (j.metro || "").toLowerCase().includes(metro.toLowerCase()));
+      if (company) rows = rows.filter((j) => (j.company_name || "").toLowerCase().includes(company));
+      if (remote) rows = rows.filter((j) => j.remote);
       if (spon === "open") rows = rows.filter((j) => !["no", "clearance"].includes(j.sponsorship));
       else if (spon) rows = rows.filter((j) => (j.sponsorship || "unknown") === spon);
       return { rows: rows.slice(0, Number(q.get("limit") || 5000)) };
@@ -1040,6 +1044,9 @@ loaders.jobs = async function () {
   const params = new URLSearchParams({ days: $("#jobDays").value, limit: "5000" });
   if ($("#jobSkill").value.trim()) params.set("skill", $("#jobSkill").value.trim());
   if ($("#jobMetro").value.trim()) params.set("metro", $("#jobMetro").value.trim());
+  if ($("#jobCompany").value.trim()) params.set("company", $("#jobCompany").value.trim());
+  if ($("#jobRemote").checked) params.set("remote", "1");
+  if ($("#jobSponsor").value) params.set("sponsorship", $("#jobSponsor").value);
   if ($("#jobSponsor").value) params.set("sponsorship", $("#jobSponsor").value);
 
   $("#jobsTable").innerHTML = '<div class="loading">Loading&hellip;</div>';
@@ -1095,7 +1102,26 @@ loaders.jobs = async function () {
   $("#jobCount").textContent =
     `${d.rows.length} role(s)` + (d.rows.length >= 200 ? " (showing the newest 200)" : "");
 };
-$("#jobSearch").addEventListener("click", () => loaders.jobs().catch(console.error));
+function runJobSearch() {
+  pageState["jobs"] = undefined;
+  loaders.jobs().catch(console.error);
+}
+
+$("#jobSearch").addEventListener("click", runJobSearch);
+$("#jobClear").addEventListener("click", () => {
+  ["jobSkill", "jobMetro", "jobCompany"].forEach((id) => ($("#" + id).value = ""));
+  $("#jobRemote").checked = false;
+  $("#jobSponsor").value = "";
+  runJobSearch();
+});
+["jobSkill", "jobMetro", "jobCompany"].forEach((id) =>
+  $("#" + id).addEventListener("keydown", (e) => {
+    if (e.key === "Enter") runJobSearch();
+  })
+);
+["jobRemote", "jobSponsor", "jobDays"].forEach((id) =>
+  $("#" + id).addEventListener("change", runJobSearch)
+);
 $("#jobSponsor").addEventListener("change", () => loaders.jobs().catch(console.error));
 $("#jobDays").addEventListener("change", () => loaders.jobs().catch(console.error));
 
