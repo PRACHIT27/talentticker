@@ -93,23 +93,14 @@ jobs:
 
       - name: Publish the site
         run: |
-          rm -rf /tmp/site && mkdir -p /tmp/site
-          cp -r site/. /tmp/site/
-          cat > /tmp/site/vercel.json <<'JSON'
-          {
-            "cleanUrls": true,
-            "headers": [
-              { "source": "/data/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=300, must-revalidate" }] },
-              { "source": "/(app.js|style.css|us-states.json)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600" }] }
-            ]
-          }
-          JSON
-          sed -i 's/^          //' /tmp/site/vercel.json
-          cd /tmp/site
+          rm -rf /tmp/pub && mkdir -p /tmp/pub
+          cp -r site /tmp/pub/site
+          cp vercel.json /tmp/pub/vercel.json
+          cd /tmp/pub
           git init -q -b site-build
           git config user.name "talentticker"
           git config user.email "talentticker@users.noreply.github.com"
           git remote add origin "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
-          git add -f .
+          git add -f site vercel.json
           git commit -q -m "site $(date -u +%Y-%m-%dT%H:%MZ)"
           git push --force origin site-build
