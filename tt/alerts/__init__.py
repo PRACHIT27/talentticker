@@ -22,6 +22,17 @@ def dispatch(posting_ids: list[str]) -> dict:
         for name, postings in grouped.items():
             subject, text, html = mailer.render(name, postings)
             delivered = mailer.send(subject, text, html)
+
+            sent["watchlists"] += 1
+            sent["postings"] += len(postings)
+            sent["delivered"] += int(delivered)
+
+            # Only record it as sent when it was sent. This used to run
+            # unconditionally, so a dry run or an SMTP outage marked everything
+            # delivered and the real mail never went out.
+            if not delivered:
+                continue
+
             watchlist.mark_sent(
                 conn, name, [p["id"] for p in postings],
                 datetime.now(timezone.utc).isoformat(timespec="seconds"),
@@ -30,9 +41,6 @@ def dispatch(posting_ids: list[str]) -> dict:
                 "UPDATE postings SET alerted=1 WHERE id=?",
                 [(p["id"],) for p in postings],
             )
-            sent["watchlists"] += 1
-            sent["postings"] += len(postings)
-            sent["delivered"] += int(delivered)
     return sent
 
 

@@ -150,6 +150,10 @@ departments:
 include_builtin_skills: true
 skill_sets: []
 
+# Who gets this profile's alerts. Without it, every profile falls back to
+# TT_ALERT_TO and one person receives everyone's mail.
+alert_to: "prachittupe@gmail.com"
+
 watchlists:
   - name: new-grad
     query: "new grad,new graduate,entry level,university grad,early career,junior"

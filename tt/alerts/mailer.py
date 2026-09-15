@@ -50,11 +50,15 @@ def render(watchlist_name: str, postings: list[dict]) -> tuple[str, str, str]:
     """Build the subject line, plain text body and HTML body."""
     count = len(postings)
     lead = postings[0]
+    # The profile goes in the subject. Two profiles running side by side used to
+    # produce identical subject lines, so a product alert and an engineering one
+    # were indistinguishable in the inbox and read as duplicates.
+    tag = config.PROFILE.label.split("·")[0].strip() or config.PROFILE.name
     if count == 1:
-        subject = f"New: {lead['title']} at {lead['company_name']}"
+        subject = f"[{tag}] New: {lead['title']} at {lead['company_name']}"
     else:
         others = len({p["company_name"] for p in postings})
-        subject = f"{count} new early-career roles ({others} companies)"
+        subject = f"[{tag}] {count} new early-career roles ({others} companies)"
 
     text_lines = [f"{count} new posting(s) matching '{watchlist_name}'.", ""]
     html_parts = [

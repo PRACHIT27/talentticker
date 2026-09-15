@@ -12,27 +12,42 @@ import os
 
 from apscheduler.schedulers.background import BackgroundScheduler
 
-from . import alerts, config, db, ingest
+from . import alerts, config, db, ingest, state
 from .analytics import themes
 
 log = logging.getLogger("tt.scheduler")
+
+
+def _alert(new_ids: list[str], label: str) -> None:
+    """Send the alerts for these postings, then checkpoint what went out.
+
+    The checkpoint matters. `alerts_sent` is the only thing stopping a posting
+    being mailed twice, and on any host where the database does not survive a
+    restart it is gone. `state.save` was wired to the CLI and nothing else, so
+    in practice the table was always empty and every poll re-sent everything.
+    """
+    log.info("%s found %d new posting(s)", label, len(new_ids))
+    result = alerts.dispatch(new_ids)
+    log.info("alerts: %s", result)
+    if result.get("delivered"):
+        try:
+            log.info("state saved: %s", state.save())
+        except OSError as exc:
+            log.error("could not save alert state: %s", exc)
 
 
 def job_poll_hot() -> None:
     """Every few minutes: look for brand-new jobs at priority companies."""
     new_ids = ingest.poll(tier=1)
     if new_ids:
-        log.info("poll_hot found %d new posting(s)", len(new_ids))
-        result = alerts.dispatch(new_ids)
-        log.info("alerts: %s", result)
+        _alert(new_ids, "poll_hot")
 
 
 def job_poll_all() -> None:
     """Hourly: the same check across every company."""
     new_ids = ingest.poll(tier=2)
     if new_ids:
-        log.info("poll_all found %d new posting(s)", len(new_ids))
-        alerts.dispatch(new_ids)
+        _alert(new_ids, "poll_all")
 
 
 def job_refresh() -> None:

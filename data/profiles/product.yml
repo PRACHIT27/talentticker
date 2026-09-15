@@ -120,6 +120,10 @@ exclude_sources:
 source_tokens:
   amazon: "Project/Program/Product Management--Technical|Project/Program/Product Management--Non-Tech"
 
+# Who gets this profile's alerts. Without it, every profile falls back to
+# TT_ALERT_TO and one person receives everyone's mail.
+alert_to: "ssv7315@nyu.edu"
+
 watchlists:
   - name: new-grad-pm
     query: "associate product manager,apm,new grad,entry level,early career,rotational"
