@@ -70,6 +70,15 @@ jobs:
           TT_PROFILE=product python -m tt snapshot
           TT_PROFILE=product python -m tt vacuum
 
+      - name: Scan GitHub for what is being built
+        if: steps.mode.outputs.full == 'true'
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python -m tt building --refresh
+          TT_PROFILE=product python -m tt building --refresh
+
       - name: Sweep every board
         if: steps.mode.outputs.full != 'true'
         run: |

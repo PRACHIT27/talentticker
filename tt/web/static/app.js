@@ -429,7 +429,7 @@ function payRangeChart(rows, labelKey, lowKey = "pay_low", highKey = "pay_high")
 let mapShapes = null;
 
 async function loadMapShapes() {
-  if (!mapShapes) mapShapes = await (await fetch("/static/us-states.json")).json();
+  if (!mapShapes) mapShapes = await (await fetch(STATIC ? "us-states.json" : "/static/us-states.json")).json();
   return mapShapes;
 }
 
